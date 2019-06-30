@@ -776,15 +776,18 @@
 <li>IPython：基于CPython的交互式编译器</li>
 <li>PyPy: 专注于执行速度的python解释器，使用JIT(just-in-time)技术，静态编译和动态解释相结合。JIT通用方法：(1) 标记经常被执行的字节码 （2）将其编译成本地的机器码 (3) 缓存该结果 (4)当同样的字节码再次被执行时，预期编译好的机器编码。<br>(JIT技术难做的原因——python语言数据在运行时才确定)</li>
 <li>JPython：将python代码编译成 java 字节码，再由JVM解释执行</li>
-<li>IronPython: .Net平台上的解释器，编译成.Net的字节码<h3 id="PE8命名规范"><a href="#PE8命名规范" class="headerlink" title="PE8命名规范"></a>PE8命名规范</h3></li>
+<li>IronPython: .Net平台上的解释器，编译成.Net的字节码</li>
+</ol>
+<h3 id="PE8命名规范"><a href="#PE8命名规范" class="headerlink" title="PE8命名规范"></a>PE8命名规范</h3><ol>
 <li>用4空格而不是tab来缩进</li>
 <li>每行字符 &lt; 79</li>
 <li>操作符和逗号后面用空格，不要在括号内部使用</li>
 <li>类命名：CamelCase, 函数：小写字母+下划线</li>
-<li>大段代码（如类和函数之间）用空行间隔<h3 id="and-or"><a href="#and-or" class="headerlink" title="and or"></a>and or</h3>python 的 and 和 or 相当于 C++ 中的 &amp;&amp; 和 ||<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = 0 and 1  # a = 1</span><br><span class="line">a = 3 and 2  # a = 2</span><br><span class="line">a = 5 or 6   # a = 5</span><br><span class="line">a = 0 or 6   # a = 6</span><br></pre></td></tr></table></figure>
-
-</li>
+<li>大段代码（如类和函数之间）用空行间隔</li>
 </ol>
+<h3 id="and-or"><a href="#and-or" class="headerlink" title="and or"></a>and or</h3><p>python 的 and 和 or 相当于 C++ 中的 &amp;&amp; 和 ||</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = 0 and 1  # a = 1</span><br><span class="line">a = 3 and 2  # a = 2</span><br><span class="line">a = 5 or 6   # a = 5</span><br><span class="line">a = 0 or 6   # a = 6</span><br></pre></td></tr></table></figure>
+
 <p>总结:</p>
 <ul>
 <li>x or y 若 x 为真, 值为 x, 否则为 y</li>
