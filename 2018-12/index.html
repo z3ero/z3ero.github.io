@@ -72,7 +72,7 @@
 
 
 
-  <meta name="keywords" content="nginx,">
+  <meta name="keywords" content="python, 爬虫,">
 
 
 
@@ -83,21 +83,18 @@
 
 
 
-<meta name="description" content="常见问题nginx 修改根目录，仍然无法访问查看日志，显示 nginx 权限不足，错误如下：将 /etc/nginx.conf 中开头的 user www-data 改为 user root, 如下图：">
-<meta name="keywords" content="nginx">
+<meta name="description" content="IP代理 原理：用户与目的地之间的中转站，双方都经由该中转站—Ip代理来交换信息。对爬虫而言，用户将抓取请求发给代理服务器，由代理服务器向目标网站请求，再将爬取信息转发给用户。 作用：隐藏真实IP, 防止自身IP被爬取网站封禁 分类： 高度匿名代理——对数据包原封不动转发，目的服务器记录IP为代理服务器IP 普通匿名代理——数据包有改动，服务器有几率追查客户真实IP 透明代理——数据包有改动，且代">
+<meta name="keywords" content="python, 爬虫">
 <meta property="og:type" content="article">
-<meta property="og:title" content="nginx部署个人博客">
-<meta property="og:url" content="http://yoursite.com/2018-06/index.html">
+<meta property="og:title" content="爬虫代理">
+<meta property="og:url" content="http://yoursite.com/2018-12/index.html">
 <meta property="og:site_name" content="落笔有益">
-<meta property="og:description" content="常见问题nginx 修改根目录，仍然无法访问查看日志，显示 nginx 权限不足，错误如下：将 /etc/nginx.conf 中开头的 user www-data 改为 user root, 如下图：">
+<meta property="og:description" content="IP代理 原理：用户与目的地之间的中转站，双方都经由该中转站—Ip代理来交换信息。对爬虫而言，用户将抓取请求发给代理服务器，由代理服务器向目标网站请求，再将爬取信息转发给用户。 作用：隐藏真实IP, 防止自身IP被爬取网站封禁 分类： 高度匿名代理——对数据包原封不动转发，目的服务器记录IP为代理服务器IP 普通匿名代理——数据包有改动，服务器有几率追查客户真实IP 透明代理——数据包有改动，且代">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/ima/nginx_perimission.png">
-<meta property="og:image" content="http://yoursite.com/ima/20190609_nginx_perimission.png">
-<meta property="og:updated_time" content="2019-06-09T14:57:15.212Z">
+<meta property="og:updated_time" content="2019-06-30T02:36:54.184Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="nginx部署个人博客">
-<meta name="twitter:description" content="常见问题nginx 修改根目录，仍然无法访问查看日志，显示 nginx 权限不足，错误如下：将 /etc/nginx.conf 中开头的 user www-data 改为 user root, 如下图：">
-<meta name="twitter:image" content="http://yoursite.com/ima/nginx_perimission.png">
+<meta name="twitter:title" content="爬虫代理">
+<meta name="twitter:description" content="IP代理 原理：用户与目的地之间的中转站，双方都经由该中转站—Ip代理来交换信息。对爬虫而言，用户将抓取请求发给代理服务器，由代理服务器向目标网站请求，再将爬取信息转发给用户。 作用：隐藏真实IP, 防止自身IP被爬取网站封禁 分类： 高度匿名代理——对数据包原封不动转发，目的服务器记录IP为代理服务器IP 普通匿名代理——数据包有改动，服务器有几率追查客户真实IP 透明代理——数据包有改动，且代">
 
 
 
@@ -127,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018-06/">
+  <link rel="canonical" href="http://yoursite.com/2018-12/">
 
 
 
 
 
-  <title>nginx部署个人博客 | 落笔有益</title>
+  <title>爬虫代理 | 落笔有益</title>
   
 
 
@@ -240,7 +237,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018-06/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018-12/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="z3ero">
@@ -257,7 +254,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">nginx部署个人博客</h1>
+          <h1 class="post-title" itemprop="name headline">爬虫代理</h1>
         
 
         <div class="post-meta">
@@ -269,8 +266,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-09T15:06:52+08:00">
-                2018-06-09
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-07T19:26:55+08:00">
+                2018-12-07
               </time>
             
 
@@ -292,8 +289,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/网站/" itemprop="url" rel="index">
-                    <span itemprop="name">网站</span>
+                  <a href="/categories/爬虫/" itemprop="url" rel="index">
+                    <span itemprop="name">爬虫</span>
                   </a>
                 </span>
 
@@ -329,7 +326,26 @@
       
 
       
-        <h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><h3 id="nginx-修改根目录，仍然无法访问"><a href="#nginx-修改根目录，仍然无法访问" class="headerlink" title="nginx 修改根目录，仍然无法访问"></a>nginx 修改根目录，仍然无法访问</h3><p>查看日志，显示 nginx 权限不足，错误如下：<br><img src="../ima/nginx_perimission.png" alt="avatar"><br>将 /etc/nginx.conf 中开头的 user www-data 改为 user root, 如下图：<br><img src="../ima/20190609_nginx_perimission.png" alt="avatar"></p>
+        <h3 id="IP代理"><a href="#IP代理" class="headerlink" title="IP代理"></a>IP代理</h3><ol>
+<li>原理：用户与目的地之间的中转站，双方都经由该中转站—Ip代理来交换信息。对爬虫而言，用户将抓取请求发给代理服务器，由代理服务器向目标网站请求，再将爬取信息转发给用户。</li>
+<li>作用：隐藏真实IP, 防止自身IP被爬取网站封禁</li>
+<li>分类：<ul>
+<li>高度匿名代理——对数据包原封不动转发，目的服务器记录IP为代理服务器IP</li>
+<li>普通匿名代理——数据包有改动，服务器有几率追查客户真实IP</li>
+<li>透明代理——数据包有改动，且代理服务器会告知目的服务器用户的真实IP</li>
+<li>间谍代理——组织用于监控内部人员网络信息而搭设的代理<h3 id="代码使用"><a href="#代码使用" class="headerlink" title="代码使用"></a>代码使用</h3>以 python requests 库为例，代码如下：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">proxies = &#123;</span><br><span class="line"> &apos;http&apos;:&apos;http://ip_address:port&apos;,</span><br><span class="line"> &apos;https&apos;:&apos;http://ip_address:port&apos;,</span><br><span class="line">&#125;</span><br><span class="line">r = requests.get(url,proxies = proxies)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ol>
+<p>这里代理IP，端口以及协议，作为一个字典传入, 根据访问url所需的协议自动选择不同的代理。<br>代理获取:</p>
+<ol>
+<li>从 IP代理提供商处购买，较稳定，如：<br> <a href="https://www.kuaidaili.com" target="_blank" rel="noopener">https://www.kuaidaili.com</a> 快代理<br> <a href="http://www.xicidaili.com" target="_blank" rel="noopener">http://www.xicidaili.com</a> 西刺代理<br> <a href="http://www.daxiangdaili.com" target="_blank" rel="noopener">http://www.daxiangdaili.com</a> 大象代理</li>
+<li>从以上或者其他网站爬取不断更新的免费代理，github上一个好的开源项目如下：<br> <a href="https://github.com/qiyeboy/IPProxys" target="_blank" rel="noopener">https://github.com/qiyeboy/IPProxys</a><h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3></li>
+<li><a href="https://cuiqingcai.com/5491.html]" target="_blank" rel="noopener">https://cuiqingcai.com/5491.html]</a>(<a href="https://cuiqingcai.com/5491.html" target="_blank" rel="noopener">https://cuiqingcai.com/5491.html</a></li>
+<li><a href="https://www.cnblogs.com/qiyeboy/p/5693128.html]" target="_blank" rel="noopener">https://www.cnblogs.com/qiyeboy/p/5693128.html]</a>(<a href="https://www.cnblogs.com/qiyeboy/p/5693128.html" target="_blank" rel="noopener">https://www.cnblogs.com/qiyeboy/p/5693128.html</a></li>
+</ol>
 
       
     </div>
@@ -347,7 +363,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/nginx/" rel="tag"># nginx</a>
+            <a href="/tags/python-爬虫/" rel="tag"># python, 爬虫</a>
           
         </div>
       
@@ -360,8 +376,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017-10/" rel="next" title="linux常用命令">
-                <i class="fa fa-chevron-left"></i> linux常用命令
+              <a href="/2018-06/" rel="next" title="nginx部署个人博客">
+                <i class="fa fa-chevron-left"></i> nginx部署个人博客
               </a>
             
           </div>
@@ -370,8 +386,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018-12/" rel="prev" title="爬虫代理">
-                爬虫代理 <i class="fa fa-chevron-right"></i>
+              <a href="/2019-05/" rel="prev" title="Leetcode刷题_5_20">
+                Leetcode刷题_5_20 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -504,7 +520,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#常见问题"><span class="nav-number">1.</span> <span class="nav-text">常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#nginx-修改根目录，仍然无法访问"><span class="nav-number">1.1.</span> <span class="nav-text">nginx 修改根目录，仍然无法访问</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#IP代理"><span class="nav-number">1.</span> <span class="nav-text">IP代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码使用"><span class="nav-number">2.</span> <span class="nav-text">代码使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>
