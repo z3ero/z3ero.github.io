@@ -91,7 +91,7 @@
 <meta property="og:site_name" content="落笔有益">
 <meta property="og:description" content="单机版在一台单机上运行，没有分布式文件系统，而是直接读写本地操作系统的文件系统安装过程：  解压Hadoop安装包到指定目录 配置Hadoop环境变量 (eg: HADOOP_HOME)使在任何目录下，都能直接运行hadoop的相关命令 配置Hadoop安装目录下的/etc/hadoop/hadoop-env.sh (告诉hadoop jdk 安装目录) 测试which hadoop 以及 had">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-07-14T01:59:19.320Z">
+<meta property="og:updated_time" content="2019-07-14T02:01:05.555Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hadoop环境搭建">
 <meta name="twitter:description" content="单机版在一台单机上运行，没有分布式文件系统，而是直接读写本地操作系统的文件系统安装过程：  解压Hadoop安装包到指定目录 配置Hadoop环境变量 (eg: HADOOP_HOME)使在任何目录下，都能直接运行hadoop的相关命令 配置Hadoop安装目录下的/etc/hadoop/hadoop-env.sh (告诉hadoop jdk 安装目录) 测试which hadoop 以及 had">
@@ -365,7 +365,7 @@
 
 </li>
 </ol>
-<h3 id="单机版Yarn"><a href="#单机版Yarn" class="headerlink" title="单机版Yarn"></a>单机版Yarn</h3><p>在伪分布式下基于Yarn运行MapReduce, 需要在伪分布式的基础上再添加配置</p>
+<h1 id="单机版Yarn"><a href="#单机版Yarn" class="headerlink" title="单机版Yarn"></a>单机版Yarn</h1><p>在伪分布式下基于Yarn运行MapReduce, 需要在伪分布式的基础上再添加配置</p>
 <ol>
 <li><p>配置 mapred-site.xml</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;mapreduce.framework.name&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;yarn&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
@@ -624,7 +624,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#单机版"><span class="nav-number">1.</span> <span class="nav-text">单机版</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#伪分布式"><span class="nav-number">2.</span> <span class="nav-text">伪分布式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#单机版Yarn"><span class="nav-number">2.0.1.</span> <span class="nav-text">单机版Yarn</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#完全分布式模式"><span class="nav-number">3.</span> <span class="nav-text">完全分布式模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#docker-搭建hadoop集群"><span class="nav-number">4.</span> <span class="nav-text">docker 搭建hadoop集群</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#单机版"><span class="nav-number">1.</span> <span class="nav-text">单机版</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#伪分布式"><span class="nav-number">2.</span> <span class="nav-text">伪分布式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#单机版Yarn"><span class="nav-number">3.</span> <span class="nav-text">单机版Yarn</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#完全分布式模式"><span class="nav-number">4.</span> <span class="nav-text">完全分布式模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#docker-搭建hadoop集群"><span class="nav-number">5.</span> <span class="nav-text">docker 搭建hadoop集群</span></a></li></ol></div>
             
 
           </div>
