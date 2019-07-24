@@ -326,7 +326,19 @@
       
         
           
-            <h3 id="引用计数"><a href="#引用计数" class="headerlink" title="引用计数"></a>引用计数</h3><h3 id="标记清除"><a href="#标记清除" class="headerlink" title="标记清除"></a>标记清除</h3><h3 id="分代回收"><a href="#分代回收" class="headerlink" title="分代回收"></a>分代回收</h3>
+            <h1 id="python一些内存分配特性"><a href="#python一些内存分配特性" class="headerlink" title="python一些内存分配特性"></a>python一些内存分配特性</h1><ol>
+<li><p>小整数池：python 中小整数[-5, 256]，单个字符这类对象是提前建立好的，所有这个范围内的整数使用同一个对象，也不会有引用计数，不会触发垃圾回收</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; a = 256</span><br><span class="line">&gt;&gt;&gt; b = 256</span><br><span class="line">&gt;&gt;&gt; id(a)</span><br><span class="line">94716374868736</span><br><span class="line">&gt;&gt;&gt; id(b)</span><br><span class="line">94716374868736</span><br><span class="line">&gt;&gt;&gt; c=257</span><br><span class="line">&gt;&gt;&gt; d=257</span><br><span class="line">&gt;&gt;&gt; id(c)</span><br><span class="line">140040279783248</span><br><span class="line">&gt;&gt;&gt; id(d)</span><br><span class="line">140040279782384</span><br><span class="line">&gt;&gt;&gt; ch = &apos;a&apos;</span><br><span class="line">&gt;&gt;&gt; ch1=&apos;a&apos;</span><br><span class="line">&gt;&gt;&gt; id(ch)</span><br><span class="line">140040280335112</span><br><span class="line">&gt;&gt;&gt; id(ch1)</span><br><span class="line">140040280335112</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>intern机制： 值相同的字符串对象（整数等不可变类型也是）仅仅会保存一次，是共用的。</p>
+</li>
+</ol>
+<ul>
+<li>在创建新的字符串对象时，如果内存中已经存在，则直接引用，避免频繁的创建和销毁内存，提升效率。</li>
+</ul>
+<h1 id="垃圾回收机制"><a href="#垃圾回收机制" class="headerlink" title="垃圾回收机制"></a>垃圾回收机制</h1><p>python 同java一样，采用垃圾回收机制，不同于java, python采用的是引用计数机制为主，标记清楚和分代回收为辅的策略</p>
+<h2 id="引用计数"><a href="#引用计数" class="headerlink" title="引用计数"></a>引用计数</h2><p>python中</p>
+<h2 id="标记清除"><a href="#标记清除" class="headerlink" title="标记清除"></a>标记清除</h2><h2 id="分代回收"><a href="#分代回收" class="headerlink" title="分代回收"></a>分代回收</h2>
           
         
       
