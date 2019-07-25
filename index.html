@@ -252,172 +252,6 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019-06/" itemprop="url">python垃圾回收机制</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-30T10:33:29+08:00">
-                2019-06-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/编程语言/" itemprop="url" rel="index">
-                    <span itemprop="name">编程语言</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="python一些内存分配特性"><a href="#python一些内存分配特性" class="headerlink" title="python一些内存分配特性"></a>python一些内存分配特性</h1><h2 id="小整数池"><a href="#小整数池" class="headerlink" title="小整数池"></a>小整数池</h2><p>python 中小整数[-5, 256]，单个字符这类对象是提前建立好的，所有这个范围内的整数使用同一个对象，也不会有引用计数，不会触发垃圾回收</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; a = 256</span><br><span class="line">&gt;&gt;&gt; b = 256</span><br><span class="line">&gt;&gt;&gt; id(a)</span><br><span class="line">94716374868736</span><br><span class="line">&gt;&gt;&gt; id(b)</span><br><span class="line">94716374868736</span><br><span class="line">&gt;&gt;&gt; c=257</span><br><span class="line">&gt;&gt;&gt; d=257</span><br><span class="line">&gt;&gt;&gt; id(c)</span><br><span class="line">140040279783248</span><br><span class="line">&gt;&gt;&gt; id(d)</span><br><span class="line">140040279782384</span><br><span class="line">&gt;&gt;&gt; ch = &apos;a&apos;</span><br><span class="line">&gt;&gt;&gt; ch1=&apos;a&apos;</span><br><span class="line">&gt;&gt;&gt; id(ch)</span><br><span class="line">140040280335112</span><br><span class="line">&gt;&gt;&gt; id(ch1)</span><br><span class="line">140040280335112</span><br></pre></td></tr></table></figure>
-
-<h2 id="intern机制"><a href="#intern机制" class="headerlink" title="intern机制"></a>intern机制</h2><p>值相同的字符串对象（整数等不可变类型也是）仅仅会保存一次，是共用的。</p>
-<p>在创建新的字符串对象时，如果内存中已经存在，则直接引用，避免频繁的创建和销毁内存，提升效率。</p>
-<h1 id="垃圾回收机制"><a href="#垃圾回收机制" class="headerlink" title="垃圾回收机制"></a>垃圾回收机制</h1><p>python 同java一样，采用垃圾回收机制，不同于java, python采用的是引用计数机制为主，标记清楚和分代回收为辅的策略</p>
-<h2 id="引用计数"><a href="#引用计数" class="headerlink" title="引用计数"></a>引用计数</h2><h3 id="什么是引用计数"><a href="#什么是引用计数" class="headerlink" title="什么是引用计数"></a>什么是引用计数</h3><p>python中一切皆对象，而python中对象的核心结构是一个结构体, PyObject，如下:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">typedef struct_object&#123;</span><br><span class="line">    int ob_refcnt;</span><br><span class="line">    struct_typeobject *ob_type;</span><br><span class="line">&#125;PyObject;</span><br></pre></td></tr></table></figure>
-
-<p>其中，ob_refcnt 是对象的引用计数。当对象被引用时，ob_refcnt++, 引用对象被删除, ob_refcnt–</p>
-<p>当引用计数为0时，对象会被回收，如下代码例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; a=[1,2,3]</span><br><span class="line">&gt;&gt;&gt; b=a</span><br><span class="line">&gt;&gt;&gt; c=[1,a]</span><br><span class="line">&gt;&gt;&gt; from sys import getrefcount</span><br><span class="line">&gt;&gt;&gt; print(getrefcount(a))   ## 注：getrefcount 内部会给a引用计数+1</span><br><span class="line">4</span><br><span class="line">&gt;&gt;&gt; del b</span><br><span class="line">&gt;&gt;&gt; print(getrefcount(a))</span><br><span class="line">3</span><br><span class="line">&gt;&gt;&gt; b = 1</span><br><span class="line">&gt;&gt;&gt; print(getrefcount(a))</span><br><span class="line">3</span><br><span class="line">&gt;&gt;&gt; c.remove(a)</span><br><span class="line">&gt;&gt;&gt; print(getrefcount(a))</span><br><span class="line">2</span><br></pre></td></tr></table></figure>
-
-<h3 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h3><ul>
-<li>优点：引用计数简单，实时性好。不像其他机制等到特定时机才回收，而是将回收内存的时间分摊到平时</li>
-<li>缺点：维护引用消耗资源；循环引用会导致内存泄露<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 循环引用</span><br><span class="line">a = [1,2,3]</span><br><span class="line">b = [4,5,6]</span><br><span class="line">a.append(b)</span><br><span class="line">b.append(a)</span><br><span class="line"># a 与 b 相互引用，引用计数不可能为0，引用计数不能处理这种环形数据结构</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<p><strong>为了解决循环引用导致的内存泄露问题，引入标记清除和分代回收机制</strong></p>
-<h2 id="标记清除"><a href="#标记清除" class="headerlink" title="标记清除"></a>标记清除</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><h3 id="如何标记"><a href="#如何标记" class="headerlink" title="如何标记"></a>如何标记</h3><h3 id="优缺点-1"><a href="#优缺点-1" class="headerlink" title="优缺点"></a>优缺点</h3><p>标记清除算法主要用于回收容器对象，如dict,list,tuple等，因为容器对象才会造成循环引用</p>
-<ul>
-<li>优点: 回收循环引用垃圾</li>
-<li>缺点: 清除非活动对象之前，必须顺序扫描整个堆内存，即使只剩下小部分活动对象，也要扫描所有。</li>
-</ul>
-<h2 id="分代回收"><a href="#分代回收" class="headerlink" title="分代回收"></a>分代回收</h2><h3 id="概念-1"><a href="#概念-1" class="headerlink" title="概念"></a>概念</h3><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><h3 id="优缺点-2"><a href="#优缺点-2" class="headerlink" title="优缺点"></a>优缺点</h3>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019-06/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="z3ero">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="落笔有益">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
                 <a class="post-title-link" href="/2019-06/" itemprop="url">python2与python3的区别</a></h1>
         
 
@@ -1760,6 +1594,197 @@
 <li><a href="https://cuiqingcai.com/5491.html]" target="_blank" rel="noopener">https://cuiqingcai.com/5491.html]</a>(<a href="https://cuiqingcai.com/5491.html" target="_blank" rel="noopener">https://cuiqingcai.com/5491.html</a></li>
 <li><a href="https://www.cnblogs.com/qiyeboy/p/5693128.html]" target="_blank" rel="noopener">https://www.cnblogs.com/qiyeboy/p/5693128.html]</a>(<a href="https://www.cnblogs.com/qiyeboy/p/5693128.html" target="_blank" rel="noopener">https://www.cnblogs.com/qiyeboy/p/5693128.html</a></li>
 </ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018-06/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="z3ero">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="落笔有益">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018-06/" itemprop="url">python垃圾回收机制</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-30T10:33:29+08:00">
+                2018-06-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/编程语言/" itemprop="url" rel="index">
+                    <span itemprop="name">编程语言</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="python垃圾回收机制"><a href="#python垃圾回收机制" class="headerlink" title="python垃圾回收机制"></a>python垃圾回收机制</h1><p>python 同java一样，采用垃圾回收机制，不同于java, python采用的是引用计数机制为主，标记清楚和分代回收为辅的策略</p>
+<h2 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h2><h3 id="小整数池"><a href="#小整数池" class="headerlink" title="小整数池"></a>小整数池</h3><p>python 中小整数[-5, 256]，单个字符这类对象是提前建立好的，所有这个范围内的整数使用同一个对象，也不会有引用计数，不会触发垃圾回收</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; a = 256</span><br><span class="line">&gt;&gt;&gt; b = 256</span><br><span class="line">&gt;&gt;&gt; id(a)</span><br><span class="line">94716374868736</span><br><span class="line">&gt;&gt;&gt; id(b)</span><br><span class="line">94716374868736</span><br><span class="line">&gt;&gt;&gt; c=257</span><br><span class="line">&gt;&gt;&gt; d=257</span><br><span class="line">&gt;&gt;&gt; id(c)</span><br><span class="line">140040279783248</span><br><span class="line">&gt;&gt;&gt; id(d)</span><br><span class="line">140040279782384</span><br><span class="line">&gt;&gt;&gt; ch = &apos;a&apos;</span><br><span class="line">&gt;&gt;&gt; ch1=&apos;a&apos;</span><br><span class="line">&gt;&gt;&gt; id(ch)</span><br><span class="line">140040280335112</span><br><span class="line">&gt;&gt;&gt; id(ch1)</span><br><span class="line">140040280335112</span><br></pre></td></tr></table></figure>
+
+<h3 id="intern机制"><a href="#intern机制" class="headerlink" title="intern机制"></a>intern机制</h3><p>值相同的字符串对象（整数等不可变类型也是）仅仅会保存一次，是共用的。</p>
+<p>在创建新的字符串对象时，如果内存中已经存在，则直接引用，避免频繁的创建和销毁内存，提升效率。</p>
+<h2 id="引用计数"><a href="#引用计数" class="headerlink" title="引用计数"></a>引用计数</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>python中一切皆对象，而python中对象的核心结构是一个结构体, PyObject，如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">typedef struct_object&#123;</span><br><span class="line">    int ob_refcnt;</span><br><span class="line">    struct_typeobject *ob_type;</span><br><span class="line">&#125;PyObject;</span><br></pre></td></tr></table></figure>
+
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>在上述结构体中，ob_refcnt 是对象的引用计数。当对象被引用时，ob_refcnt++, 引用对象被删除, ob_refcnt–</p>
+<p>当引用计数为0时，对象会被回收，如下代码例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; a=[1,2,3]</span><br><span class="line">&gt;&gt;&gt; b=a</span><br><span class="line">&gt;&gt;&gt; c=[1,a]</span><br><span class="line">&gt;&gt;&gt; from sys import getrefcount</span><br><span class="line">&gt;&gt;&gt; print(getrefcount(a))   ## 注：getrefcount 内部会给a引用计数+1</span><br><span class="line">4</span><br><span class="line">&gt;&gt;&gt; del b</span><br><span class="line">&gt;&gt;&gt; print(getrefcount(a))</span><br><span class="line">3</span><br><span class="line">&gt;&gt;&gt; b = 1</span><br><span class="line">&gt;&gt;&gt; print(getrefcount(a))</span><br><span class="line">3</span><br><span class="line">&gt;&gt;&gt; c.remove(a)</span><br><span class="line">&gt;&gt;&gt; print(getrefcount(a))</span><br><span class="line">2</span><br></pre></td></tr></table></figure>
+
+<h3 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h3><ul>
+<li>优点：引用计数简单，实时性好。不像其他机制等到特定时机才回收，而是将回收内存的时间分摊到平时</li>
+<li>缺点：维护引用消耗资源；循环引用会导致内存泄露<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 循环引用</span><br><span class="line">a = [1,2,3]</span><br><span class="line">b = [4,5,6]</span><br><span class="line">a.append(b)</span><br><span class="line">b.append(a)</span><br><span class="line"># a 与 b 相互引用，引用计数不可能为0，引用计数不能处理这种环形数据结构</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p><strong>为了解决循环引用导致的内存泄露问题，引入标记清除和分代回收机制</strong></p>
+<h2 id="标记清除"><a href="#标记清除" class="headerlink" title="标记清除"></a>标记清除</h2><h3 id="概念-1"><a href="#概念-1" class="headerlink" title="概念"></a>概念</h3><p>对象名：不存值，只存储一个内存地址，指向堆<br>对象值：程序在堆内开辟的内存（垃圾回收的对象）</p>
+<p>标记清除（mark-sweep）是一种基于追踪回收（tracing GC）技术实现的垃圾回收算法。<br>分为两个阶段：</p>
+<ol>
+<li>标记阶段，GC会把所有的『活动对象』打上标记，</li>
+<li>是把那些没有标记的对象『非活动对象』进行回收</li>
+</ol>
+<h3 id="原理-1"><a href="#原理-1" class="headerlink" title="原理"></a>原理</h3><p>对象引用可以表示成一个以对象为节点，引用关系为边的图。如下图：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">0((root)) --&gt; 1((1))</span><br><span class="line">1 --&gt; 2</span><br><span class="line">1 --&gt; 3</span><br><span class="line">3 --&gt; 2</span><br><span class="line">4 --&gt; 1</span><br><span class="line">4 --&gt; 5</span><br><span class="line">5 --&gt; 3</span><br></pre></td></tr></table></figure>
+
+<p>root 可以看作是一个存放于栈区的对象名，从它开始，进行深度或者广度优先遍历，将可达对象打上标记，上图中，只有节点5是不可达的。</p>
+<p>具体流程：</p>
+<ol>
+<li>遍历GC root引用（栈区内的对象名）</li>
+<li>使用DFS或者BFS搜索堆，标记搜索到的对象『活动对象』— 一般使用占内存较小的DFS</li>
+<li>前两步完成之后，遍历堆，找到未被标记的对象『非活动对象』，进行回收</li>
+</ol>
+<h3 id="优缺点-1"><a href="#优缺点-1" class="headerlink" title="优缺点"></a>优缺点</h3><p>标记清除算法主要用于回收容器对象，如dict,list,tuple等，因为容器对象才会造成循环引用</p>
+<ul>
+<li>优点: 回收循环引用垃圾，算法简单</li>
+<li>缺点: 效率低。清除非活动对象之前，必须顺序扫描整个堆内存，即使只剩下小部分活动对象，也要扫描所有。</li>
+</ul>
+<h2 id="分代回收"><a href="#分代回收" class="headerlink" title="分代回收"></a>分代回收</h2><h3 id="概念-2"><a href="#概念-2" class="headerlink" title="概念"></a>概念</h3><p>在CPython中，【引用计数机制】 是实时进行的，但是效率较低的【标记清除】何时执行，对那些对象执行？为了改善标记清除的效率问题，引入【分代回收机制】</p>
+<p>分代回收的思想：直觉上，一个对象存活时间越长，依赖引用它的对象会越多，越不容易被回收。</p>
+<h3 id="原理-2"><a href="#原理-2" class="headerlink" title="原理"></a>原理</h3><ol>
+<li>新创建的对象称为0代</li>
+<li>每执行一次【标记清除】，存活下来的对象代数+1</li>
+<li>代数越高的对象，进行【标记清除】的时间间隔越长</li>
+</ol>
+<p>python将对象总共分为三代，对应3个链表，它们的垃圾回收频率与对象存活时间成反比，这个回收频率可以通过gc.set_threshold(threshold0 [, threshold1 [,threshold2]])来设置</p>
+<p>当gc中新增的对象数量 - 删除的对象数量 &gt; threshold0, python对第0代进行一次【标记清除】。<br>当第0代被回收次数 &gt; threshold1, 对第一代对象【标记清除】。<br>当第1代被回收次数 &gt; threshold2, 对第二代对象 —-<br>以此类推</p>
 
           
         
