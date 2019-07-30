@@ -233,6 +233,397 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018-07/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="z3ero">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="落笔有益">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018-07/" itemprop="url">python——闭包和装饰器</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-02T15:48:12+08:00">
+                2018-07-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/编程语言/" itemprop="url" rel="index">
+                    <span itemprop="name">编程语言</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="python-闭包与装饰器"><a href="#python-闭包与装饰器" class="headerlink" title="python 闭包与装饰器"></a>python 闭包与装饰器</h1><ol>
+<li>闭包</li>
+</ol>
+<ul>
+<li><p>概念：在函数体中定义内部函数，并且使用了外部函数的变量，然后把内部函数给返回，那么这个内部函数就是闭包</p>
+</li>
+<li><p>优点：避免污染全局环境，这样就可以在函数体外使用函数体中定义的变量  (每个函数体是自己的作用域)</p>
+</li>
+<li><p>缺点：数据长期驻留在内存中，造成内存极大的浪费。（实际开发中，要避免使用闭包）</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">a = 10</span><br><span class="line">def func1():</span><br><span class="line">    b = 20</span><br><span class="line">    def func2():</span><br><span class="line">        c = 30</span><br><span class="line">        return a + b + c</span><br><span class="line">    return func2()</span><br><span class="line">print(func1())</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ol start="2">
+<li>装饰器</li>
+</ol>
+<ul>
+<li><p>装饰：内在不变，只是外在变化了</p>
+</li>
+<li><p>概念：是一个闭包，把一个函数作为参数然后返回一个替代版函数，本质上就是一个返回函数的函数</p>
+</li>
+<li><p>作用：在不修改原函数的前提下增加函数的功能，最好的方式是使用装饰器</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># 一个简单的装饰器</span><br><span class="line">def func():</span><br><span class="line">    print(&quot;sunck is a good man&quot;)</span><br><span class="line"></span><br><span class="line">def wrapper(f):</span><br><span class="line">    def inner():</span><br><span class="line">        print(&quot;***********&quot;)</span><br><span class="line">        f()</span><br><span class="line">    return inner</span><br><span class="line"></span><br><span class="line">d = wrapper(func)   # d即func的替代函数</span><br><span class="line">d()</span><br></pre></td></tr></table></figure>
+
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># 一个复杂的装饰器</span><br><span class="line"># 下不修改say原函数代码的情况下增加say的功能，判断age是否符合常理</span><br><span class="line">def say(name, age):</span><br><span class="line">    return &quot;%s is a good man! he is %d years old&quot;%(name, age)</span><br><span class="line">def wrapper(f):</span><br><span class="line">    def inner(name, age):</span><br><span class="line">        #增加功能</span><br><span class="line">        if age &lt;= 0:</span><br><span class="line">            age = 0</span><br><span class="line">        return f(name, age)</span><br><span class="line">    return inner</span><br><span class="line">say = wrapper(say)</span><br><span class="line">print(say(&quot;sunck&quot;, -18))</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ol start="3">
+<li><p>使用@将装饰器应用于函数上<br> 只需要在函数定义前加上@装饰器的名称即可</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">def wrapper(f):</span><br><span class="line">    def inner(name, age):</span><br><span class="line">        #增加功能</span><br><span class="line">        if age &lt;= 0:</span><br><span class="line">            age = 0</span><br><span class="line">        return f(name, age)</span><br><span class="line">    return inner</span><br><span class="line"></span><br><span class="line">@wrapper</span><br><span class="line">def say(name, age):</span><br><span class="line">    return &quot;%s is a good man! he is %d years old&quot;%(name, age)</span><br><span class="line"></span><br><span class="line"># 相当于  say = wrapper(say)</span><br><span class="line">print(say(&quot;sunck&quot;, -18))</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>带参数的装饰器<br> 带参数的装饰器应该内部包含两层函数，装饰器的参数在@处传值</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">def wrapper(count):</span><br><span class="line">    def deco(f):</span><br><span class="line">        def inner(*args, **kwargs):</span><br><span class="line">            for i in range(count):</span><br><span class="line">                f(*args, **kwargs)</span><br><span class="line">        return inner</span><br><span class="line">    return deco</span><br><span class="line"></span><br><span class="line">@wrapper(3)     # 装饰器传参 count = 3</span><br><span class="line">def func():</span><br><span class="line">    print(&quot;sunck is a good man&quot;)</span><br><span class="line"></span><br><span class="line">func()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>多个装饰器的场景<br> 装饰时：从距离近的装饰器开始装饰<br> 执行时：从距离远的装饰器开始执行</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">def wrapper1(f):</span><br><span class="line">    print(&quot;enter wrapper1&quot;)</span><br><span class="line">    def inner1(*args, **kwargs):</span><br><span class="line">        print(&quot;enter inner1&quot;)</span><br><span class="line">        res = f(*args, **kwargs)</span><br><span class="line">        print(&quot;exit inner1&quot;)</span><br><span class="line">        return res</span><br><span class="line">    print(&quot;exit wrapper1&quot;)</span><br><span class="line">    return inner1</span><br><span class="line"></span><br><span class="line">def wrapper2(f):</span><br><span class="line">    print(&quot;enter wrapper2&quot;)</span><br><span class="line">    def inner2(*args, **kwargs):</span><br><span class="line">        print(&quot;enter inner2&quot;)</span><br><span class="line">        res = f(*args, **kwargs)</span><br><span class="line">        print(&quot;exit inner2&quot;)</span><br><span class="line">        return res</span><br><span class="line">    print(&quot;exit wrapper2&quot;)</span><br><span class="line">    return inner2</span><br><span class="line"></span><br><span class="line">def wrapper3(f):</span><br><span class="line">    print(&quot;enter wrapper3&quot;)</span><br><span class="line">    def inner3(*args, **kwargs):</span><br><span class="line">        print(&quot;enter inner3&quot;)</span><br><span class="line">        res = f(*args, **kwargs)</span><br><span class="line">        print(&quot;exit inner3&quot;)</span><br><span class="line">        return res</span><br><span class="line">    print(&quot;exit wrapper3&quot;)</span><br><span class="line">    return inner3</span><br><span class="line"></span><br><span class="line">&apos;&apos;&apos;</span><br><span class="line">装饰时：从距离近的装饰器开始装饰</span><br><span class="line">执行时：从距离远的装饰器内部函数开始执行</span><br><span class="line">&apos;&apos;&apos;</span><br><span class="line">@wrapper1</span><br><span class="line">@wrapper2</span><br><span class="line">@wrapper3</span><br><span class="line">def func(x, y):</span><br><span class="line">    return x + y</span><br><span class="line"></span><br><span class="line">print(&quot;----------------&quot;)</span><br><span class="line">func(1, 2)</span><br><span class="line"></span><br><span class="line"># 执行结果如下：</span><br><span class="line">&apos;&apos;&apos;</span><br><span class="line">enter wrapper3</span><br><span class="line">exit wrapper3</span><br><span class="line">enter wrapper2</span><br><span class="line">exit wrapper2</span><br><span class="line">enter wrapper1</span><br><span class="line">exit wrapper1</span><br><span class="line">----------------</span><br><span class="line">enter inner1</span><br><span class="line">enter inner2</span><br><span class="line">enter inner3</span><br><span class="line">exit inner3</span><br><span class="line">exit inner2</span><br><span class="line">exit inner1</span><br><span class="line">&apos;&apos;&apos;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>装饰器使用场景</p>
+</li>
+</ol>
+<ul>
+<li><p>参数、结果检查： 如上面程序对不合法年龄的检查</p>
+</li>
+<li><p>缓存 （如下，缓存中间结果，避免重复运算） </p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># 使用装饰器计算移动平均值</span><br><span class="line">def make_avg(f):</span><br><span class="line">    count = 0</span><br><span class="line">    total = 0</span><br><span class="line">    def wrapper(new_value):</span><br><span class="line">        nolocal count, total</span><br><span class="line">        count += 1</span><br><span class="line">        total += new_value</span><br><span class="line">        return f(total, count)</span><br><span class="line">    return wrapper</span><br><span class="line"></span><br><span class="line">@make_avg</span><br><span class="line">def func(total, count):   # 简单的除法运算</span><br><span class="line">    return total/count</span><br><span class="line"></span><br><span class="line">for i in range(100):    # 计算从 1-100 的移动平均值</span><br><span class="line">    print(func(i))</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>计数：如使用装饰器计量函数运行次数</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">def count(f):</span><br><span class="line">    index = 0</span><br><span class="line">    def inner(*args, **kwargs):</span><br><span class="line">        nolocal index</span><br><span class="line">        index += 1</span><br><span class="line">        res = f(*args, **kwargs)</span><br><span class="line">        print(&quot;第%d次执行&quot;%index)</span><br><span class="line">    return inner</span><br><span class="line"></span><br><span class="line">@count</span><br><span class="line">def func():</span><br><span class="line">    print(&quot;hello!&quot;)</span><br><span class="line"></span><br><span class="line">func()</span><br><span class="line">func()</span><br><span class="line"># 注意：两个函数使用上述相同的装饰器，内部index各自有各自的内存，不冲突，不干扰</span><br></pre></td></tr></table></figure>
+
+<p>  <strong>nolocal 关键字:</strong> 内部函数的赋值操作 index += 1 会让index变成新的局部变量，无法与外层index绑定，nolocal将index变量标记为非局部，即便赋值，仍然为非局部变量</p>
+</li>
+<li><p>日志<br>  函数本身只有自己的功能，在装饰器中添加日志功能</p>
+</li>
+<li><p>权限管理<br>  在架构中使用，函数只有本身功能，装饰器中添加权限判断</p>
+</li>
+<li><p>重试<br>  程序重连数据库，使用装饰器规定重试几次，如下代码</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">def retry(count=3, wait=20, exceptions=(Exception,)):   # 最多重试3次，间隔 20s, 所有异常</span><br><span class="line">    import time</span><br><span class="line">    def wrapper(f):</span><br><span class="line">        def inner(*args, **kwargs):</span><br><span class="line">            for i in range(count):</span><br><span class="line">                try:</span><br><span class="line">                    print(&quot;------------------&quot;)</span><br><span class="line">                    f(*args, **kwargs)</span><br><span class="line">                except Exception as e:</span><br><span class="line">                    time.sleep(wait)</span><br><span class="line">                    continue</span><br><span class="line">                else:   # 如果没有异常，就输出</span><br><span class="line">                    return res</span><br><span class="line">        return inner</span><br><span class="line">    return wrapper</span><br><span class="line"></span><br><span class="line">@retry(5)</span><br><span class="line">def connnectSQL(ip, port, dbName, passwd):</span><br><span class="line">    num = random.choice([1,2,3,4])</span><br><span class="line">    print(&quot;*****&quot;, num)</span><br><span class="line">    if num&lt;=4:</span><br><span class="line">        10/0</span><br><span class="line">        </span><br><span class="line">connectSQL(&quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018-06/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="z3ero">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="落笔有益">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018-06/" itemprop="url">python垃圾回收机制</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-30T10:33:29+08:00">
+                2018-06-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/编程语言/" itemprop="url" rel="index">
+                    <span itemprop="name">编程语言</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="python垃圾回收机制"><a href="#python垃圾回收机制" class="headerlink" title="python垃圾回收机制"></a>python垃圾回收机制</h1><p>python 同java一样，采用垃圾回收机制，不同于java, python采用的是引用计数机制为主，标记清楚和分代回收为辅的策略</p>
+<h2 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h2><h3 id="小整数池"><a href="#小整数池" class="headerlink" title="小整数池"></a>小整数池</h3><p>python 中小整数[-5, 256]，单个字符这类对象是提前建立好的，所有这个范围内的整数使用同一个对象，也不会有引用计数，不会触发垃圾回收</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; a = 256</span><br><span class="line">&gt;&gt;&gt; b = 256</span><br><span class="line">&gt;&gt;&gt; id(a)</span><br><span class="line">94716374868736</span><br><span class="line">&gt;&gt;&gt; id(b)</span><br><span class="line">94716374868736</span><br><span class="line">&gt;&gt;&gt; c=257</span><br><span class="line">&gt;&gt;&gt; d=257</span><br><span class="line">&gt;&gt;&gt; id(c)</span><br><span class="line">140040279783248</span><br><span class="line">&gt;&gt;&gt; id(d)</span><br><span class="line">140040279782384</span><br><span class="line">&gt;&gt;&gt; ch = &apos;a&apos;</span><br><span class="line">&gt;&gt;&gt; ch1=&apos;a&apos;</span><br><span class="line">&gt;&gt;&gt; id(ch)</span><br><span class="line">140040280335112</span><br><span class="line">&gt;&gt;&gt; id(ch1)</span><br><span class="line">140040280335112</span><br></pre></td></tr></table></figure>
+
+<h3 id="intern机制"><a href="#intern机制" class="headerlink" title="intern机制"></a>intern机制</h3><p>值相同的字符串对象（整数等不可变类型也是）仅仅会保存一次，是共用的。</p>
+<p>在创建新的字符串对象时，如果内存中已经存在，则直接引用，避免频繁的创建和销毁内存，提升效率。</p>
+<h2 id="引用计数"><a href="#引用计数" class="headerlink" title="引用计数"></a>引用计数</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>python中一切皆对象，而python中对象的核心结构是一个结构体, PyObject，如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">typedef struct_object&#123;</span><br><span class="line">    int ob_refcnt;</span><br><span class="line">    struct_typeobject *ob_type;</span><br><span class="line">&#125;PyObject;</span><br></pre></td></tr></table></figure>
+
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>在上述结构体中，ob_refcnt 是对象的引用计数。当对象被引用时，ob_refcnt++, 引用对象被删除, ob_refcnt–</p>
+<p>当引用计数为0时，对象会被回收，如下代码例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; a=[1,2,3]</span><br><span class="line">&gt;&gt;&gt; b=a</span><br><span class="line">&gt;&gt;&gt; c=[1,a]</span><br><span class="line">&gt;&gt;&gt; from sys import getrefcount</span><br><span class="line">&gt;&gt;&gt; print(getrefcount(a))   ## 注：getrefcount 内部会给a引用计数+1</span><br><span class="line">4</span><br><span class="line">&gt;&gt;&gt; del b</span><br><span class="line">&gt;&gt;&gt; print(getrefcount(a))</span><br><span class="line">3</span><br><span class="line">&gt;&gt;&gt; b = 1</span><br><span class="line">&gt;&gt;&gt; print(getrefcount(a))</span><br><span class="line">3</span><br><span class="line">&gt;&gt;&gt; c.remove(a)</span><br><span class="line">&gt;&gt;&gt; print(getrefcount(a))</span><br><span class="line">2</span><br></pre></td></tr></table></figure>
+
+<h3 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h3><ul>
+<li>优点：引用计数简单，实时性好。不像其他机制等到特定时机才回收，而是将回收内存的时间分摊到平时</li>
+<li>缺点：维护引用消耗资源；循环引用会导致内存泄露<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 循环引用</span><br><span class="line">a = [1,2,3]</span><br><span class="line">b = [4,5,6]</span><br><span class="line">a.append(b)</span><br><span class="line">b.append(a)</span><br><span class="line"># a 与 b 相互引用，引用计数不可能为0，引用计数不能处理这种环形数据结构</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p><strong>为了解决循环引用导致的内存泄露问题，引入标记清除和分代回收机制</strong></p>
+<h2 id="标记清除"><a href="#标记清除" class="headerlink" title="标记清除"></a>标记清除</h2><h3 id="概念-1"><a href="#概念-1" class="headerlink" title="概念"></a>概念</h3><p>对象名：不存值，只存储一个内存地址，指向堆<br>对象值：程序在堆内开辟的内存（垃圾回收的对象）</p>
+<p>标记清除（mark-sweep）是一种基于追踪回收（tracing GC）技术实现的垃圾回收算法。<br>分为两个阶段：</p>
+<ol>
+<li>标记阶段，GC会把所有的『活动对象』打上标记，</li>
+<li>是把那些没有标记的对象『非活动对象』进行回收</li>
+</ol>
+<h3 id="原理-1"><a href="#原理-1" class="headerlink" title="原理"></a>原理</h3><p>对象引用可以表示成一个以对象为节点，引用关系为边的图。如下图：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">0((root)) --&gt; 1((1))</span><br><span class="line">1 --&gt; 2</span><br><span class="line">1 --&gt; 3</span><br><span class="line">3 --&gt; 2</span><br><span class="line">4 --&gt; 1</span><br><span class="line">4 --&gt; 5</span><br><span class="line">5 --&gt; 3</span><br></pre></td></tr></table></figure>
+
+<p>root 可以看作是一个存放于栈区的对象名，从它开始，进行深度或者广度优先遍历，将可达对象打上标记，上图中，只有节点5是不可达的。</p>
+<p>具体流程：</p>
+<ol>
+<li>遍历GC root引用（栈区内的对象名）</li>
+<li>使用DFS或者BFS搜索堆，标记搜索到的对象『活动对象』— 一般使用占内存较小的DFS</li>
+<li>前两步完成之后，遍历堆，找到未被标记的对象『非活动对象』，进行回收</li>
+</ol>
+<h3 id="优缺点-1"><a href="#优缺点-1" class="headerlink" title="优缺点"></a>优缺点</h3><p>标记清除算法主要用于回收容器对象，如dict,list,tuple等，因为容器对象才会造成循环引用</p>
+<ul>
+<li>优点: 回收循环引用垃圾，算法简单</li>
+<li>缺点: 效率低。清除非活动对象之前，必须顺序扫描整个堆内存，即使只剩下小部分活动对象，也要扫描所有。</li>
+</ul>
+<h2 id="分代回收"><a href="#分代回收" class="headerlink" title="分代回收"></a>分代回收</h2><h3 id="概念-2"><a href="#概念-2" class="headerlink" title="概念"></a>概念</h3><p>在CPython中，【引用计数机制】 是实时进行的，但是效率较低的【标记清除】何时执行，对那些对象执行？为了改善标记清除的效率问题，引入【分代回收机制】</p>
+<p>分代回收的思想：直觉上，一个对象存活时间越长，依赖引用它的对象会越多，越不容易被回收。</p>
+<h3 id="原理-2"><a href="#原理-2" class="headerlink" title="原理"></a>原理</h3><ol>
+<li>新创建的对象称为0代</li>
+<li>每执行一次【标记清除】，存活下来的对象代数+1</li>
+<li>代数越高的对象，进行【标记清除】的时间间隔越长</li>
+</ol>
+<p>python将对象总共分为三代，对应3个链表，它们的垃圾回收频率与对象存活时间成反比，这个回收频率可以通过gc.set_threshold(threshold0 [, threshold1 [,threshold2]])来设置</p>
+<p>当gc中新增的对象数量 - 删除的对象数量 &gt; threshold0, python对第0代进行一次【标记清除】。<br>当第0代被回收次数 &gt; threshold1, 对第一代对象【标记清除】。<br>当第1代被回收次数 &gt; threshold2, 对第二代对象 —-<br>以此类推</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018-06/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1449,7 +1840,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
