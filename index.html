@@ -233,7 +233,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019-07/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019-08/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="z3ero">
@@ -252,7 +252,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019-07/" itemprop="url">Untitled</a></h1>
+                <a class="post-title-link" href="/2019-08/" itemprop="url">Untitled</a></h1>
         
 
         <div class="post-meta">
@@ -264,8 +264,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-31T17:12:28+08:00">
-                2019-07-31
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-02T17:16:06+08:00">
+                2019-08-02
               </time>
             
 
@@ -366,7 +366,7 @@
  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">class Person(Object):   # Person 继承于 Object</span><br><span class="line">    def __init__(self):</span><br><span class="line">        do something</span><br><span class="line"></span><br><span class="line">class Student(Person):  # Student 继承于 Person</span><br><span class="line">    def __init__(self):</span><br><span class="line">        do something</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>多继承的实现</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 注意：如果两个父类中有相同的方法， 使用子类调用该方法时，默认 调用最前面的父类，这里是Class1</span><br><span class="line">def Student(Class1, Class2):  # student 继承于 Class1, Class2</span><br><span class="line">    def __init__(self):</span><br><span class="line">        do something</span><br></pre></td></tr></table></figure>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># 注意：如果两个父类中有相同的方法， 使用子类调用该方法时，如__init__方法，如果不重写这个方法，默认调用最前面的父类，这里是Add</span><br><span class="line">def Add(Object):</span><br><span class="line">    def __init__(self, x):</span><br><span class="line">        self.x = x</span><br><span class="line">def Sub(Object):</span><br><span class="line">    def __init__(self, x):</span><br><span class="line">        slef.x = x</span><br><span class="line"></span><br><span class="line">def Calculator(Add, Sub):  # Calculator 继承于 Add, Sub</span><br><span class="line">    pass</span><br><span class="line"></span><br><span class="line">cal = Calculator(5)</span><br></pre></td></tr></table></figure>
 
 </li>
 </ol>
@@ -377,8 +377,92 @@
 <li>情况2：A类中定义了f() 方法， B与C都继承与A, D继承自B和C, 此时，D继承B的f() 还是 C的f()</li>
 </ul>
 </li>
-<li><p>mro的算法————查看指定类的继承顺序  (DFS深度优先遍历算法) —— 用于处理python中继承的二义性问题<br> <img src="../ima/python_extends_order.png" alt="avatar"></p>
+<li><p>c++解决二义性：</p>
+<ul>
+<li>情况1: 通过同名覆盖解决</li>
+<li>情况2：通过虚继承来解决</li>
+</ul>
 </li>
+<li><p>python类的发展</p>
+<ul>
+<li>经典类：2.2 以前，没有继承的类，定义时，class Name 就可以，不需要(Object)</li>
+<li>新式类: 有Object</li>
+</ul>
+</li>
+<li><p>python解决二义性——mro(通过C3算法解决避免二义性的情况)</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import inspect</span><br><span class="line">class A:</span><br><span class="line">    pass</span><br><span class="line">class B(A):</span><br><span class="line">    pass</span><br><span class="line">class C(A):</span><br><span class="line">    pass</span><br><span class="line">class D(B, C):</span><br><span class="line">    pass</span><br><span class="line">print(inspect.getmro(D))</span><br></pre></td></tr></table></figure>
+
+<p> (1) 对于python3来说，上述代码，只有新式类，默认继承关系是：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 先在D中寻找函数，没有定义，找B, 再找C, 找A, 最后找到Object </span><br><span class="line">(&lt;class &apos;__main__.D&apos;&gt;, &lt;class &apos;__main__.B&apos;&gt;, &lt;class &apos;__main__.C&apos;&gt;, &lt;class &apos;__main__.A&apos;&gt;, &lt;class &apos;object&apos;&gt;)</span><br></pre></td></tr></table></figure>
+
+<p> (2) 对于python2来说，新式类和经典类并存，class A被认为是经典类，其继承关系是：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 先找D, 再找B, 找C, 最后找A, 不找Object</span><br><span class="line">(&lt;class __main__.D at 0x7f4d5ad8e1f0&gt;, &lt;class __main__.B at 0x7f4d5ad8e120&gt;, &lt;class __main__.A at 0x7f4d5ad8e0b8&gt;, &lt;class __main__.C at 0x7f4d5ad8e188&gt;)</span><br></pre></td></tr></table></figure>
+
+<p> (3) 总结： </p>
+<ul>
+<li><p>经典类的MRO算法是DFS （深度优先遍历）<br><img src="../ima/python_extends_order.png" alt="avatar"><br>不足之处：</p>
+<blockquote>
+<blockquote>
+<p>对于第二种菱形继承方式, 存在公共父类的多继承，这种情况使用DFS遍历到C之前，必须到D, 如果D中有一些初始化属性和方法，但是C中重写了这些方法与属性，那么最终导致C中重写的属性和方法永远无法被继承到（因为找到D就找到方法名了，不用往下找了）或者说A不能继承重写C中的方法, 如下代码:</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class D:</span><br><span class="line">    def f(self):</span><br><span class="line">        print &quot;in D&quot;</span><br><span class="line">class B(D):</span><br><span class="line">    pass</span><br><span class="line">class C(D):</span><br><span class="line">    def f(self):</span><br><span class="line">        print &quot;in C&quot;</span><br><span class="line">class A(B,C):</span><br><span class="line">    pass</span><br><span class="line"></span><br><span class="line">a = A()</span><br><span class="line">a.run()   # 在 Python2.x 中， a 只能调用 D中的f</span><br></pre></td></tr></table></figure>
+</blockquote>
+</blockquote>
+</li>
+<li><p>新式类的MRO算法是 BFS (广度优先遍历)<br><img src="../ima/python_mro_bfs.png" alt="avatar"><br>不足之处</p>
+<blockquote>
+<blockquote>
+<p>对于第一种继承方式，当D, C有同名函数时， A继承不到D的函数, 违背了单调性(如果父类找不到，找爷爷)</p>
+</blockquote>
+</blockquote>
+</li>
+<li><p>现在的MRO算法是C3算法（拓扑排序）可以解决DFS和BFS的问题： 无法继承重写和非单调性</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import inspect</span><br><span class="line">class D(object):</span><br><span class="line">    pass</span><br><span class="line">class E(object):</span><br><span class="line">    pass</span><br><span class="line">class F(object):</span><br><span class="line">    pass</span><br><span class="line">class C(D, F):</span><br><span class="line">    pass</span><br><span class="line">class B(E, D):</span><br><span class="line">    pass</span><br><span class="line">class A(B, C):</span><br><span class="line">    pass</span><br><span class="line">print(A.mro())</span><br></pre></td></tr></table></figure>
+
+<p>  继承顺序如下：<br>  <img src="../ima/python_mro_c3_1.png" alt="avatar"></p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&lt;class &apos;__main__.A&apos;&gt;, &lt;class &apos;__main__.B&apos;&gt;, &lt;class &apos;__main__.E&apos;&gt;, &lt;class &apos;__main__.C&apos;&gt;, &lt;class &apos;__main__.D&apos;&gt;, &lt;class &apos;__main__.F&apos;&gt;, &lt;class &apos;object&apos;&gt;]</span><br></pre></td></tr></table></figure>
+
+<p>  算法过程：</p>
+<ol>
+<li>从左侧开始找入度为0的点，找出A, </li>
+<li>将A的边减掉</li>
+<li>在剩下的图中重复 1-2 步骤</li>
+<li>最终序列为 ABECDF-Object</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="python多态"><a href="#python多态" class="headerlink" title="python多态"></a>python多态</h3><blockquote>
+<blockquote>
+<p>一种事物的多种形态，多态的前提的继承，如下代码<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class Animal(obejct):</span><br><span class="line">    def __init__(self, name):</span><br><span class="line">        self.name = name</span><br><span class="line">    def eat(self):</span><br><span class="line">        print (&quot;%s 吃&quot;%self.name)</span><br><span class="line"></span><br><span class="line">class Dog(Animal):</span><br><span class="line">    # 可重写 eat 方法</span><br><span class="line">    pass</span><br><span class="line"></span><br><span class="line">class Cat(Animal):</span><br><span class="line">    # 可重写 eat 方法</span><br><span class="line">    pass</span><br><span class="line"></span><br><span class="line">class Person(Object):</span><br><span class="line">    def feedAni(self, ani):   # 因为有多态，一个方法可以feed任意种Animal</span><br><span class="line">        ani.eat()</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+</blockquote>
+<h3 id="python-mixin模式"><a href="#python-mixin模式" class="headerlink" title="python mixin模式"></a>python mixin模式</h3><blockquote>
+<blockquote>
+<p>在不使用多继承的情况下，动态添加父类，类似于java的接口<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">class TestMinXin(object):</span><br><span class="line">def func1(self):</span><br><span class="line">    pass</span><br><span class="line">def say(self):</span><br><span class="line">    print(&quot;i am mixin&quot;)</span><br><span class="line">    </span><br><span class="line">class Person(object):</span><br><span class="line">    def say(self):</span><br><span class="line">        print(&quot;i am a person&quot;)</span><br><span class="line"></span><br><span class="line">class Student(Person):</span><br><span class="line">    pass</span><br><span class="line"></span><br><span class="line">stu = Student()</span><br><span class="line">stu.say()</span><br><span class="line"></span><br><span class="line">def mixin(pyClass, pyMixinClass, flag=0):</span><br><span class="line">    if flag:  # flag 为1， 表示将mixin类设置为主 父类</span><br><span class="line">        pyClass.__bases__ = (pyMixinClass,) + pyClass.__bases__</span><br><span class="line">    elif pyMixinClass not in pyClass.__bases__:</span><br><span class="line">        pyClass.__bases__ += (pyMixinClass,)</span><br><span class="line">    else:</span><br><span class="line">        pass</span><br><span class="line"></span><br><span class="line">mixin(Student, TestMinXin, 1)</span><br><span class="line">print(Student.mro())</span><br><span class="line">stu.say()</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+</blockquote>
+<pre><code>i am a person
+[&lt;class &apos;__main__.Student&apos;&gt;, &lt;class &apos;__main__.TestMinXin&apos;&gt;, &lt;class &apos;__main__.Person&apos;&gt;, &lt;class &apos;object&apos;&gt;]
+i am mixin
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> </span><br></pre></td></tr></table></figure></code></pre><h3 id="魔术方法-xxxx-方法"><a href="#魔术方法-xxxx-方法" class="headerlink" title="魔术方法 xxxx 方法"></a>魔术方法 <strong>xxxx</strong> 方法</h3><ol>
+<li>常见魔术方法<br> (1) 初始化：<strong>init</strong>(), <strong>new</strong>(), <strong>del</strong>()<br> (2) 属性控制：<br> (3) 数学运算， 比较运算：<br> (4) 容器方法: <strong>len</strong>(), <strong>iter</strong>(), <pre><code>__contains__() ----- in</code></pre> (5) 描述对象: <strong>get</strong>(), <strong>set</strong>(), <strong>delete</strong>()</li>
+<li>运算符重载 eg: <strong>add</strong> 方法重写，相当于 + 重载</li>
+<li>属性监听 eg: <strong>getattr</strong> 对.引用监听，找不到.属性，执行 <strong>getattr</strong> 方法； <strong>setattr</strong> 对.属性赋值监听，当对.属性赋值时，执行<strong>setattr</strong>方法</li>
+<li>枚举类 </li>
+</ol>
+<h3 id="类装饰器"><a href="#类装饰器" class="headerlink" title="类装饰器"></a>类装饰器</h3><p>类装饰器主要借助 <strong>call</strong> 方法</p>
+<ol>
+<li><p>基本的类装饰器</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Class AAA(object):</span><br><span class="line">    def __init__(self, f):</span><br><span class="line">        self.f = f</span><br><span class="line">    def __call__(self, *args, **kwargs):</span><br><span class="line">        print(&apos;---------&apos;)</span><br><span class="line">        res = self.fun()</span><br><span class="line">        return res</span><br><span class="line"></span><br><span class="line">@AAA</span><br><span class="line">def fun():</span><br><span class="line">    print(&quot;hello world&quot;)</span><br><span class="line"></span><br><span class="line">fun()</span><br><span class="line"># 原理：fun() 相当于执行了 obj = AAA(); fun = obj;  fun() 相当于执行了 类的 __call__ 方法</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>传参的类装饰器</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class AAA(object):</span><br><span class="line">    def __init__(self, count):</span><br><span class="line">        self.count = count</span><br><span class="line">    def __call__(self, f):</span><br><span class="line">        def inner(*args, **kwargs):</span><br><span class="line">            for i in range(self.count):</span><br><span class="line">                f(*args, **kwargs)</span><br><span class="line">        return inner</span><br><span class="line"></span><br><span class="line">@AAA(5)</span><br><span class="line">def fun():</span><br><span class="line">    print(&apos;hello world!&apos;)</span><br><span class="line">fun()</span><br><span class="line"># 原理：@AAA(5) 相当于创建了一个对象 ===&gt;obj = AAA(5)===&gt; 接下来执行obj(fun) 调用 __call__ 返回 inner</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="python自动发送邮件"><a href="#python自动发送邮件" class="headerlink" title="python自动发送邮件"></a>python自动发送邮件</h3><ol>
+<li>需要用到的模块<br> (1) email.mime.MINEText 用于封装邮件内容<br> (2) smtplib 用于连接邮件服务器</li>
 </ol>
 <h3 id="linux-常用命令"><a href="#linux-常用命令" class="headerlink" title="linux 常用命令"></a>linux 常用命令</h3><ol>
 <li><p>软链接和硬链接<br> (1) 区别：</p>
