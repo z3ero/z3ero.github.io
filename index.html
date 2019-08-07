@@ -264,8 +264,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-02T17:16:06+08:00">
-                2019-08-02
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-07T17:10:57+08:00">
+                2019-08-07
               </time>
             
 
@@ -464,6 +464,100 @@ i am mixin
 <h3 id="python自动发送邮件"><a href="#python自动发送邮件" class="headerlink" title="python自动发送邮件"></a>python自动发送邮件</h3><ol>
 <li>需要用到的模块<br> (1) email.mime.MINEText 用于封装邮件内容<br> (2) smtplib 用于连接邮件服务器</li>
 </ol>
+<h3 id="异常处理，调试和测试"><a href="#异常处理，调试和测试" class="headerlink" title="异常处理，调试和测试"></a>异常处理，调试和测试</h3><ol>
+<li><p>异常处理流程<br> try…except…(else)语句<br> try…except…(finally)语句<br> 可以连续使用多个except，except用于捕获错误并处理.<br> (1)若是没有匹配的except语句，则将异常提交到上一层;<br> (2)无异常，执行else语句;<br> (3)无论有无异常，都要执行finally;<br> (4)使用except 不带任何错误类型，则默认捕获任何异常</p>
+</li>
+<li><p>python中的错误和异常都继承自BaseException, 使用父类时会将子类异常一网打尽。</p>
+</li>
+<li><p>调试<br> (1) 断言: assert语句。程序执行到assert语句时，首先计算第一个表达式的，值，如果值为真，则继续向下执行，否则断言失败，assert语句抛出AssertError异常, 异常信息为第二个表达式的值</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">def func(x):</span><br><span class="line">    assert x!=0, &apos;x is zero&apos;</span><br><span class="line">    return 10/x</span><br><span class="line">func(0)</span><br><span class="line">&apos;&apos;&apos;</span><br><span class="line">AssertionError: x is zero</span><br><span class="line">&apos;&apos;&apos;</span><br></pre></td></tr></table></figure>
+
+<p> <strong>优点:</strong> 程序运行时，可以通过 python -O 来屏蔽断言(使断言失效)<br> (2) logging<br> (3) pdb：python的调试器，让程序单步执行(类似c的gdb)，是python的一个模块，用代码来加断点，进而查看运行信息</p>
+</li>
+</ol>
+<h3 id="IO编程"><a href="#IO编程" class="headerlink" title="IO编程"></a>IO编程</h3><ol>
+<li><p>读写文件，open函数打开方式， encoding 参数——按照指定编码格式打开文件</p>
+<ul>
+<li>r, rb, r+(只读，二进制只读，读写)</li>
+<li>w, wb, w+(只写，二进制只写，读写)  文件存在则覆盖，不存在创建新文件</li>
+<li>a, a+ (追加写，追加读写)</li>
+</ul>
+</li>
+<li><p>文件描述符是有限的，操作系统同一时刻打开的文件对象数目是有限的，用完文件后必须关闭文件。</p>
+</li>
+<li><p>文件读取方式<br> fp.read(byte_nums): 读取指定字节数，无参默认读取全部<br> fp.readline()<br> fp.readlines()<br> 原理：从文件描述符指向的位置向后读取<br> fp.tell()  查看文件符的位置，返回从文件开始到当前的字节数<br> fp.seek(pos) 修改文件描述符的位置</p>
+</li>
+<li><p>文件写入<br> 文件写入会先将文件写入缓冲区，再从缓存区写入硬盘<br> 缓冲区写入时机：</p>
+<ul>
+<li>程序结束</li>
+<li>关闭文件</li>
+<li>遇到\n</li>
+<li>手动刷新<br>  fp.flush()   # 手动刷新缓冲区，将之前的write内容写入硬盘</li>
+<li>缓冲区满了</li>
+</ul>
+</li>
+<li><p>encode(param) 和 decode(param)<br> eg： obj.encode(‘gbk’) 和 obj.decode(‘gbk’) </p>
+</li>
+<li><p>StringIO 和 BytesIO  (验证码场景)</p>
+<ul>
+<li>数据的读写不一定都是文件，也可以在内存中读写，StringIO 用于在内存中读写字符串; BytesIO可以操作二进制数据，在内存中读写byte<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">from io import StringIO</span><br><span class="line">from io import BytesIO</span><br><span class="line">fp = StringIO()</span><br><span class="line"># 将字符串写入内存</span><br><span class="line">fp.write(&apos;hello world!1&apos;)</span><br><span class="line">fp.write(&apos;hello world!2&apos;)</span><br><span class="line">fp.write(&apos;hello world!3&apos;)</span><br><span class="line">fp.write(&apos;hello world!4&apos;)</span><br><span class="line"># 获取写入的内容：getvalue 将之前写入的全部读出</span><br><span class="line">info = fp.getvalue()   # 也可以用常规的 read, readline 读</span><br><span class="line"></span><br><span class="line">fp2 = BytesIO()</span><br><span class="line">fp.write(&quot;你好，世界&quot;.encode(&apos;utf-8&apos;))</span><br><span class="line">info = fp.getvalue().decode(&apos;utf-8&apos;)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>os 模块中包含了丰富的操作系统操作</p>
+<p> (1) os.name: 操作系统类型<br> (2) os.unname: 获取详细的操作系统信息<br> (3) os.environ: 获取系统环境变量<br> (4) os.getpwd(): 当前绝对路径<br> (5) os.listdir(path): 指定目录下所有文件<br> (6) os.mkdir(path), os.rmdir(path): 创建删除目录<br> (7) os.remove(path): 删除文件<br> (8) os.rename(path1, path2): 重命名文件<br> (9) os.state(path): 获取文件属性<br> (10) os.system(shell): 运行shell命令<br> (11) os.path.join(path1, path2): 拼接路径<br> (12) os.path.split(path): 拆分路径，获得最后一个/后的内容<br> (13) os.path.splittext(path): 获取文件扩展名<br> (14) os.path.exists(path): 判断文件或者目录是否存在</p>
+</li>
+<li><p>持久化存储</p>
+<p> pickle 用于持久保存对象化，将list, tuple, dict, set 等数据序列化存储到文件</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import pickle</span><br><span class="line">users = &#123;...&#125;</span><br><span class="line">with open(path, &apos;wb&apos;) as fp:</span><br><span class="line">    pickle.dump(users, fp)   # 将字典写入文件</span><br><span class="line">with open(path, &apos;rb&apos;) as fp:</span><br><span class="line">    users = pickle.load(fp) # 从文件中读取字典</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>re</p>
+<p> 使python拥有的正则表达式功能<br> (1) match(pattern, string, flags=0): 从起始位置匹配pattern，即string 是否以 pattern 开头<br> (2) search(pattern, string, flags=0): 扫描整个string, 返回第一个成功的匹配<br> (3) findall(pattern, string, flogs=0): 扫描整个string，返回成功匹配的列表</p>
+</li>
+</ol>
+<h3 id="线程和进程"><a href="#线程和进程" class="headerlink" title="线程和进程"></a>线程和进程</h3><ol>
+<li><p>概念：</p>
+<ul>
+<li>并发： 看上去一起执行，任务数量多于CPU核心数</li>
+<li>并行： 指正的一起执行</li>
+</ul>
+</li>
+<li><p>实现多任务的方式：</p>
+<ul>
+<li>多进程</li>
+<li>多线程</li>
+<li>多进程+多线程</li>
+<li>协程</li>
+<li>多进程+协程</li>
+</ul>
+</li>
+<li><p>多进程： multiprocessing 模块<br> (1) Process</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">from multiprocessing import Process</span><br><span class="line">def fun(arg1, args2):</span><br><span class="line">    pass</span><br><span class="line"># 创建并启动子进程</span><br><span class="line">p = Process(target=run, args=(arg1, arg2))</span><br><span class="line">p.start()</span><br><span class="line">p.join()   # 等待子进程结束</span><br></pre></td></tr></table></figure>
+
+<p> (2) Pool</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">from multiprocess import Pool</span><br><span class="line">def fun():</span><br><span class="line">    pass</span><br><span class="line">p = Pool()</span><br><span class="line">for i in range(3):</span><br><span class="line">    p.apply_async(fun, args(,))</span><br><span class="line">pool.close()</span><br><span class="line">pool.join()</span><br></pre></td></tr></table></figure>
+
+<p> (3) 创建进程类对象</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">from multiprocessing import Process</span><br><span class="line">class MyProcess(Process):</span><br><span class="line">    def __init__(self, name):</span><br><span class="line">        super().__init__()</span><br><span class="line">        self.name = name</span><br><span class="line">    def run(self):</span><br><span class="line">        # 进程类功能函数</span><br><span class="line">        print(&apos;%s is runing&apos;%self.name)</span><br><span class="line"></span><br><span class="line">if __name__==&quot;__main__&quot;:</span><br><span class="line">    my_process = MyProcess(&quot;sub_process&quot;)</span><br><span class="line">    my_process.start()</span><br><span class="line">    my_process.join()</span><br></pre></td></tr></table></figure>
+
+<p> (4) 进程间通信： 有名管道，无名管道，队列，共享内存，信号，信号量</p>
+</li>
+<li><p>多线程<br> (1) _thread 模块：低级模块，threading模块：高级模块，对_thread进行了封装<br> (2) 创建线程</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import threading</span><br><span class="line">def fun():</span><br><span class="line">    pass</span><br><span class="line">if __name__==&quot;__main__&quot;:</span><br><span class="line">    th1 = threading.Thread(target=run, args=(,))</span><br><span class="line">    th1.start()</span><br><span class="line">    th1.join()</span><br></pre></td></tr></table></figure>
+
+<p> (3) threading.Lock() 创建线程锁<br> (4) local = threading.local() 每个线程创建独属于本线程的对象空间</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"># ThreadLock: 每个线程独立的存储空间</span><br><span class="line">import threading</span><br><span class="line"></span><br><span class="line">local = threading.local()</span><br><span class="line">lock = threading.Lock()</span><br><span class="line">money = 0</span><br><span class="line">def changeMoney(x, n):</span><br><span class="line">    x += n</span><br><span class="line">    x -= n</span><br><span class="line"></span><br><span class="line">def run1(num):</span><br><span class="line">    local.money = num</span><br><span class="line">    for i in range(3):</span><br><span class="line">        with lock:</span><br><span class="line">            print(&apos;run1 ----&apos;, local.money)</span><br><span class="line"></span><br><span class="line">def run2(num):</span><br><span class="line">    local.money = num</span><br><span class="line">    for i in range(3):</span><br><span class="line">        with lock:</span><br><span class="line">            print(&apos;run2------&apos;, local.money)</span><br><span class="line">th1 = threading.Thread(target=run1, args=(1,))</span><br><span class="line">th2 = threading.Thread(target=run2, args=(2,))</span><br><span class="line">th1.start()</span><br><span class="line">th2.start()</span><br><span class="line">th1.join()</span><br><span class="line">th1.join()</span><br><span class="line">&apos;&apos;&apos;</span><br><span class="line">run1 ---- 1</span><br><span class="line">run1 ---- 1</span><br><span class="line">run1 ---- 1</span><br><span class="line">run2------ 2</span><br><span class="line">run2------ 2</span><br><span class="line">run2------ 2</span><br><span class="line">&apos;&apos;&apos;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>多进程vs多线程<br> (1) 多进程，同一个全局变量，每个子进程各自有一个拷贝，互不影响； 而在多线程中，共享这些变量，任意全局变量可被任意线程修改<br> (2) 进程稳定性更高：子进程崩溃，不影响其他子进程<br> (3) 进程创建代价更大，windows下代价 &gt; linux 下代价<br> (4) 计算密集型：需要大量计算，消耗CPU较大</p>
+<pre><code>IO密集型：涉及网络，磁盘IO的任务较多</code></pre></li>
+<li><p>定时线程</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import time</span><br><span class="line">import threading</span><br><span class="line"></span><br><span class="line">def fun():</span><br><span class="line">    print(&quot;thread running&quot;)</span><br><span class="line"></span><br><span class="line">if __name__==&quot;__main__&quot;:</span><br><span class="line">    # 在主机进程启动5秒后再执行，不会阻塞主线程(与sleep不同)</span><br><span class="line">    th = threading.Timer(5, fun)</span><br><span class="line">    th.start()</span><br><span class="line">    th.join()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>线程通信： threading.Event()</p>
+</li>
+<li><p>线程调度： threading.Condition()</p>
+</li>
+</ol>
 <h3 id="linux-常用命令"><a href="#linux-常用命令" class="headerlink" title="linux 常用命令"></a>linux 常用命令</h3><ol>
 <li><p>软链接和硬链接<br> (1) 区别：</p>
 <ul>
@@ -487,6 +581,234 @@ i am mixin
 </ul>
 </li>
 </ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019-08/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="z3ero">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="落笔有益">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019-08/" itemprop="url">常见排序算法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-05T09:22:15+08:00">
+                2019-08-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/面试题/" itemprop="url" rel="index">
+                    <span itemprop="name">面试题</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="数据库类"><a href="#数据库类" class="headerlink" title="数据库类"></a>数据库类</h1><h2 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h2><ol>
+<li><p>mysql 更改用户密码方式<br>(1) 登录mysql后，使用如下命令修改</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; set password for username@localhost = password(&apos;new password&apos;)</span><br></pre></td></tr></table></figure>
+
+<p>(2) 不登录mysql, 使用 mysqladmin更改</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqladmin -u用户名 -p旧密码 password新密码</span><br></pre></td></tr></table></figure>
+
+<p>(3) 登录mysql，使用update直接编辑user表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; user mysql;</span><br><span class="line">mysql&gt; update user set password = password(&apos;new password&apos;) where user=&apos;root&apos; and host=&apos;localhost&apos;;</span><br><span class="line">mysql&gt; flush privileges</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>mysql数据库有哪几种引擎，各个引擎的区别？<br>数据库引擎是数据库用于存储，处理和保护数据的核心服务，不同数据库引擎有其各自的特点，主要体现在存储机制，索引技巧，主键处理，锁粒度等方面。针对自己的项目特点选择合适的数据库引擎可以改善服务端存储性能。mysql中数据库引擎如下图:<br><img src="../ima/mysql_engine_1.png" alt="avatar"><br>(1) InnoDB (默认引擎)</p>
+<ul>
+<li>特点:  <ol>
+<li>事务型存储引擎。支持ACID (原子性，一致性，隔离性，持久性)</li>
+<li>具有行级锁定。(锁的粒度小，写数据时，不需要锁住整个表，适用于高并发)</li>
+<li>支持外键。(唯一一个支持外键的引擎)</li>
+<li>支持自动增加列</li>
+</ol>
+</li>
+<li>优缺点：<ol>
+<li>优点：提供了良好的事务处理，崩溃恢复，和并发控制</li>
+<li>缺点：读写效率一般，磁盘占用空间大; 不支持全文索引</li>
+<li>适用场景：用于高并发，表需要经常更新与查询; 可靠性要求高，需要支持灾难恢复(通过bin-log日志)的场景; 适合处理大容量数据，运行时在内存中建立缓冲池，缓存数据以及索引。</li>
+</ol>
+</li>
+</ul>
+<p>(2) MyISAM (以前的默认引擎)</p>
+<ul>
+<li>特点：<ol>
+<li>表级锁。更新时，锁定整张表，降低了并发性能</li>
+<li>只缓存索引，不缓存数据</li>
+<li>支持全文索引</li>
+</ol>
+</li>
+<li>优缺点：<ol>
+<li>优点: 查询速度快，磁盘占用空间少; 独立于操作系统</li>
+<li>缺点：不支持事务的完整性和并发性</li>
+<li>适用场景：需要做很多count运算，查询频繁，修改较少，没有事务需求的场景，如blog</li>
+</ol>
+</li>
+</ul>
+<p>(3) MEMORY</p>
+<ul>
+<li>特点:<ol>
+<li>默认使用hash索引, 数据放在内存中</li>
+</ol>
+</li>
+<li>优缺点:<ol>
+<li>优点：数据查询最快</li>
+<li>缺点：要求存储定长格式的数据</li>
+<li>适用场景：一般用于存储操作的中间结果表，对中间结果高效分析并得到最终统计结果；适用于目标数据较小，并且需要非常频繁地进行访问</li>
+</ol>
+</li>
+</ul>
+<p>(4) Archive</p>
+<ul>
+<li>优缺点：<ol>
+<li>优点：占用空间小</li>
+<li>缺点：不支持事务；不支持update和delete</li>
+<li>适用场景：用于数据归档，压缩比高，存储空间比innodb 小一量级，适合存储历史数据，如日志信息；提供高速的插入和压缩功能</li>
+</ol>
+</li>
+</ul>
+<p>(5) CSV, BlackHole</p>
+<ul>
+<li>以csv格式存储数据，不支持索引，所有列不为NULL</li>
+</ul>
+</li>
+</ol>
+<h2 id="https-get-和-post-的区别"><a href="#https-get-和-post-的区别" class="headerlink" title="https get 和 post 的区别"></a>https get 和 post 的区别</h2><ol>
+<li>get 参数通过url传递，post 放在 request body 中</li>
+<li>get 请求传参有长度限制(url)，post没有</li>
+<li>get 只支持URL编码，post支持多种编码</li>
+<li>get 请求会被浏览器主动cache, post 不会</li>
+<li>get 请求在浏览器回退时是无害的，post回退时会再次提交请求</li>
+<li>大部分浏览器上，(火狐除外) get 系那将header 与 data 合并产生一个TCP数据包发送； post先发heaer, 再发data, 两个tcp包，因此post消耗时间多些。<strong>注意</strong> 这并不是http中规定的，而是浏览器或者框架所造成的不同</li>
+</ol>
+<h2 id="http-状态码"><a href="#http-状态码" class="headerlink" title="http 状态码"></a>http 状态码</h2><ol>
+<li>200 正常</li>
+<li>304 服务端资源无变化，可使用缓存资源</li>
+<li>400 请求参数不合法</li>
+<li>401 未认证，未授权</li>
+<li>403 禁止但访问</li>
+<li>404 未找到该资源</li>
+<li>500 服务端异常</li>
+</ol>
+<h2 id="2-gt-amp-1"><a href="#2-gt-amp-1" class="headerlink" title="2&gt;&amp;1"></a>2&gt;&amp;1</h2><p>linux 中 0 表示stdin, 1 表示 stdout, 2 表示 stderr</p>
 
           
         
@@ -1950,186 +2272,6 @@ i am mixin
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018-07/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="z3ero">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="落笔有益">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018-07/" itemprop="url">python——可迭代对象和迭代器</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-04T10:11:12+08:00">
-                2018-07-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/编程语言/" itemprop="url" rel="index">
-                    <span itemprop="name">编程语言</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="可迭代对象，迭代器"><a href="#可迭代对象，迭代器" class="headerlink" title="可迭代对象，迭代器"></a>可迭代对象，迭代器</h1><h2 id="可迭代对象"><a href="#可迭代对象" class="headerlink" title="可迭代对象"></a>可迭代对象</h2><ol>
-<li>概念： 可以直接作用于 for 循环的对象统称可迭代对象</li>
-</ol>
-<ul>
-<li>集合数据类型： list，tuple, dict, set, string 等</li>
-<li>generator: 包含生成器和带yield的generator function</li>
-<li>判断是否为可迭代对象, 使用 isinstance()函数判断 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">from collection import Iterable</span><br><span class="line">print(isinstance([], Iterable))</span><br><span class="line"># 返回 true 说明是可迭代对象</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<ol start="2">
-<li>生成可迭代对象</li>
-</ol>
-<ul>
-<li><p>列表生成式</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">li = [i*i for i in range(1,9)]   # 生成列表</span><br><span class="line">li2 = [i*i for i in range(1,9) if x%2==0]   # 加以判断</span><br><span class="line"># 列表生成式还可以用于： 排列，组合</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>生成器<br> 克服了列表生成器的缺点——所有数据都存到内存中<br> 生成器的元素是一遍循环，一遍推导出来的，节省内存<br> (1) 修改列表生成式的[] 为 ()</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">li = (x*x for x in range(1,6))</span><br></pre></td></tr></table></figure>
-
-<p> (2) 将函数return 改为 yield<br> 推导算法太复杂，使用列表生成式无法实现时， 可以选择使用函数式生成器</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># 生成器实现fibonaci数列</span><br><span class="line">def fib(count):</span><br><span class="line">   index = 0</span><br><span class="line">   x, y = 0,1</span><br><span class="line">   while index &lt; count:</span><br><span class="line">      yield y</span><br><span class="line">      x, y = y, x+y</span><br><span class="line">      index += 1</span><br><span class="line">datas = fibs(6)</span><br><span class="line">for d in datas:</span><br><span class="line">   print(d)</span><br></pre></td></tr></table></figure>
-
-<p> <strong>注意:</strong>使用for循环遍历generator时，拿不到generator的return数值；如果想要返回值，必须用next()，捕获无值时的StopInteration错误，返回值包含在错误对象的value属性中(e.value)。</p>
-</li>
-</ul>
-<h2 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h2><ol>
-<li><p>概念<br>迭代器是可迭代对象的子集，它不但可以用于for循环，还可以被next()调用。<br>可迭代对象不一定可以被next()调用</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">from collection import Iterator</span><br><span class="line">print(isinstance([], Iterator))   # 返回 False (列表只是可迭代对象)</span><br><span class="line">print(isinstance((x*x for i in range(10)), Iterator)) # True 生成器即迭代器</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>可迭代对象转迭代器</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">li = [1,2,3,4,5]</span><br><span class="line">li = iter(li)   # 转迭代器</span><br><span class="line">print(next(li))</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>Iterator对象表示的是一个数据流，它可以被next函数调用返回数据，直到返回StopIteration错误。</li>
-<li>与list，tuple等可迭代对象相比，迭代器并不确定序列长度（可以表示无限大的数据流），是为惰性求值而设计的。</li>
-</ul>
-</li>
-</ol>
-<h2 id="偏函数"><a href="#偏函数" class="headerlink" title="偏函数"></a>偏函数</h2><p>   将原函数的某些的参数固定（赋予默认缺省值）<br>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 将给定字符串按照16进制转为数字</span><br><span class="line">data = int(&quot;ab&quot;, base=16)   # data = 171</span><br><span class="line"># 偏函数固定base</span><br><span class="line">import functools</span><br><span class="line">int16 = functools.partial(int, base=16)</span><br><span class="line">data = int16(&quot;ab&quot;)</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2180,7 +2322,7 @@ i am mixin
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -2191,7 +2333,7 @@ i am mixin
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">categories</span>
                 
               </div>
@@ -2202,7 +2344,7 @@ i am mixin
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">tags</span>
                 
               </div>

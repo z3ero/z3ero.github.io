@@ -252,6 +252,186 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
+                <a class="post-title-link" href="/2018-07/" itemprop="url">python——可迭代对象和迭代器</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-04T10:11:12+08:00">
+                2018-07-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/编程语言/" itemprop="url" rel="index">
+                    <span itemprop="name">编程语言</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="可迭代对象，迭代器"><a href="#可迭代对象，迭代器" class="headerlink" title="可迭代对象，迭代器"></a>可迭代对象，迭代器</h1><h2 id="可迭代对象"><a href="#可迭代对象" class="headerlink" title="可迭代对象"></a>可迭代对象</h2><ol>
+<li>概念： 可以直接作用于 for 循环的对象统称可迭代对象</li>
+</ol>
+<ul>
+<li>集合数据类型： list，tuple, dict, set, string 等</li>
+<li>generator: 包含生成器和带yield的generator function</li>
+<li>判断是否为可迭代对象, 使用 isinstance()函数判断 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">from collection import Iterable</span><br><span class="line">print(isinstance([], Iterable))</span><br><span class="line"># 返回 true 说明是可迭代对象</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ol start="2">
+<li>生成可迭代对象</li>
+</ol>
+<ul>
+<li><p>列表生成式</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">li = [i*i for i in range(1,9)]   # 生成列表</span><br><span class="line">li2 = [i*i for i in range(1,9) if x%2==0]   # 加以判断</span><br><span class="line"># 列表生成式还可以用于： 排列，组合</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>生成器<br> 克服了列表生成器的缺点——所有数据都存到内存中<br> 生成器的元素是一遍循环，一遍推导出来的，节省内存<br> (1) 修改列表生成式的[] 为 ()</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">li = (x*x for x in range(1,6))</span><br></pre></td></tr></table></figure>
+
+<p> (2) 将函数return 改为 yield<br> 推导算法太复杂，使用列表生成式无法实现时， 可以选择使用函数式生成器</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># 生成器实现fibonaci数列</span><br><span class="line">def fib(count):</span><br><span class="line">   index = 0</span><br><span class="line">   x, y = 0,1</span><br><span class="line">   while index &lt; count:</span><br><span class="line">      yield y</span><br><span class="line">      x, y = y, x+y</span><br><span class="line">      index += 1</span><br><span class="line">datas = fibs(6)</span><br><span class="line">for d in datas:</span><br><span class="line">   print(d)</span><br></pre></td></tr></table></figure>
+
+<p> <strong>注意:</strong>使用for循环遍历generator时，拿不到generator的return数值；如果想要返回值，必须用next()，捕获无值时的StopInteration错误，返回值包含在错误对象的value属性中(e.value)。</p>
+</li>
+</ul>
+<h2 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h2><ol>
+<li><p>概念<br>迭代器是可迭代对象的子集，它不但可以用于for循环，还可以被next()调用。<br>可迭代对象不一定可以被next()调用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">from collection import Iterator</span><br><span class="line">print(isinstance([], Iterator))   # 返回 False (列表只是可迭代对象)</span><br><span class="line">print(isinstance((x*x for i in range(10)), Iterator)) # True 生成器即迭代器</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>可迭代对象转迭代器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">li = [1,2,3,4,5]</span><br><span class="line">li = iter(li)   # 转迭代器</span><br><span class="line">print(next(li))</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Iterator对象表示的是一个数据流，它可以被next函数调用返回数据，直到返回StopIteration错误。</li>
+<li>与list，tuple等可迭代对象相比，迭代器并不确定序列长度（可以表示无限大的数据流），是为惰性求值而设计的。</li>
+</ul>
+</li>
+</ol>
+<h2 id="偏函数"><a href="#偏函数" class="headerlink" title="偏函数"></a>偏函数</h2><p>   将原函数的某些的参数固定（赋予默认缺省值）<br>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 将给定字符串按照16进制转为数字</span><br><span class="line">data = int(&quot;ab&quot;, base=16)   # data = 171</span><br><span class="line"># 偏函数固定base</span><br><span class="line">import functools</span><br><span class="line">int16 = functools.partial(int, base=16)</span><br><span class="line">data = int16(&quot;ab&quot;)</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018-07/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="z3ero">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="落笔有益">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
                 <a class="post-title-link" href="/2018-07/" itemprop="url">python——闭包和装饰器</a></h1>
         
 
@@ -1840,7 +2020,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1851,7 +2031,7 @@
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">categories</span>
                 
               </div>
@@ -1862,7 +2042,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">tags</span>
                 
               </div>

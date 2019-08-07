@@ -72,7 +72,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="笔试,">
 
 
 
@@ -83,21 +83,20 @@
 
 
 
-<meta name="description" content="注意 from modulename import * 尽量避免使用，可能会造成变量冲突之类  name每个模块都有一个 name属性，当其值为”main“时，表示该模块自身在运行，否则模块是被另一个程序引入的，此时值为模块的名字 12    ——————————————–堆栈  栈是向低地址扩展的数据结构，连续的，编译器分配的 堆是向高地址扩展的数据结构，碎片的，程序员自己分配的面向对象： 类方">
+<meta name="description" content="数据库类MySQL mysql 更改用户密码方式(1) 登录mysql后，使用如下命令修改 1mysql&amp;gt; set password for username@localhost = password(&amp;apos;new password&amp;apos;)  (2) 不登录mysql, 使用 mysqladmin更改 1mysqladmin -u用户名 -p旧密码 password新密码  (3">
+<meta name="keywords" content="笔试">
 <meta property="og:type" content="article">
-<meta property="og:title" content="落笔有益">
+<meta property="og:title" content="常见排序算法">
 <meta property="og:url" content="http://yoursite.com/2019-08/index.html">
 <meta property="og:site_name" content="落笔有益">
-<meta property="og:description" content="注意 from modulename import * 尽量避免使用，可能会造成变量冲突之类  name每个模块都有一个 name属性，当其值为”main“时，表示该模块自身在运行，否则模块是被另一个程序引入的，此时值为模块的名字 12    ——————————————–堆栈  栈是向低地址扩展的数据结构，连续的，编译器分配的 堆是向高地址扩展的数据结构，碎片的，程序员自己分配的面向对象： 类方">
+<meta property="og:description" content="数据库类MySQL mysql 更改用户密码方式(1) 登录mysql后，使用如下命令修改 1mysql&amp;gt; set password for username@localhost = password(&amp;apos;new password&amp;apos;)  (2) 不登录mysql, 使用 mysqladmin更改 1mysqladmin -u用户名 -p旧密码 password新密码  (3">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/ima/python_extends_order.png">
-<meta property="og:image" content="http://yoursite.com/ima/python_mro_bfs.png">
-<meta property="og:image" content="http://yoursite.com/ima/python_mro_c3_1.png">
-<meta property="og:updated_time" content="2019-08-02T09:16:06.445Z">
+<meta property="og:image" content="http://yoursite.com/ima/mysql_engine_1.png">
+<meta property="og:updated_time" content="2019-08-07T09:10:57.117Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="落笔有益">
-<meta name="twitter:description" content="注意 from modulename import * 尽量避免使用，可能会造成变量冲突之类  name每个模块都有一个 name属性，当其值为”main“时，表示该模块自身在运行，否则模块是被另一个程序引入的，此时值为模块的名字 12    ——————————————–堆栈  栈是向低地址扩展的数据结构，连续的，编译器分配的 堆是向高地址扩展的数据结构，碎片的，程序员自己分配的面向对象： 类方">
-<meta name="twitter:image" content="http://yoursite.com/ima/python_extends_order.png">
+<meta name="twitter:title" content="常见排序算法">
+<meta name="twitter:description" content="数据库类MySQL mysql 更改用户密码方式(1) 登录mysql后，使用如下命令修改 1mysql&amp;gt; set password for username@localhost = password(&amp;apos;new password&amp;apos;)  (2) 不登录mysql, 使用 mysqladmin更改 1mysqladmin -u用户名 -p旧密码 password新密码  (3">
+<meta name="twitter:image" content="http://yoursite.com/ima/mysql_engine_1.png">
 
 
 
@@ -133,7 +132,7 @@
 
 
 
-  <title> | 落笔有益</title>
+  <title>常见排序算法 | 落笔有益</title>
   
 
 
@@ -257,7 +256,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline"></h1>
+          <h1 class="post-title" itemprop="name headline">常见排序算法</h1>
         
 
         <div class="post-meta">
@@ -269,8 +268,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-02T17:16:06+08:00">
-                2019-08-02
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-05T09:22:15+08:00">
+                2019-08-05
               </time>
             
 
@@ -279,6 +278,28 @@
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/面试题/" itemprop="url" rel="index">
+                    <span itemprop="name">面试题</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -307,189 +328,93 @@
       
 
       
-        <h1 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h1><ol>
-<li><p>from modulename import * 尽量避免使用，可能会造成变量冲突之类</p>
-</li>
-<li><p><strong>name</strong><br>每个模块都有一个 <strong>name</strong>属性，当其值为”<strong>main</strong>“时，表示该模块自身在运行，否则模块是被另一个程序引入的，此时值为模块的名字</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+        <h1 id="数据库类"><a href="#数据库类" class="headerlink" title="数据库类"></a>数据库类</h1><h2 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h2><ol>
+<li><p>mysql 更改用户密码方式<br>(1) 登录mysql后，使用如下命令修改</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; set password for username@localhost = password(&apos;new password&apos;)</span><br></pre></td></tr></table></figure>
 
-</li>
-</ol>
-<h1 id="——————————————–"><a href="#——————————————–" class="headerlink" title="——————————————–"></a>——————————————–</h1><p>堆栈</p>
-<ol>
-<li>栈是向低地址扩展的数据结构，连续的，编译器分配的</li>
-<li>堆是向高地址扩展的数据结构，碎片的，程序员自己分配的<h2 id="面向对象："><a href="#面向对象：" class="headerlink" title="面向对象："></a>面向对象：</h2></li>
-<li>类方法<br> (1) 无序实例化，直接使用类名调用<br> (2) 定义: 使用@classmethod</li>
-<li>静态方法<br> (1) 可以用类或对象调用，但是无法获取类内的属性和方法，完全独立的方法.<br> (2) 使用@staticmethod 定义, 可以用对象或者类来调用</li>
-<li>代码 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">class Person(object):</span><br><span class="line">    # 对象方法</span><br><span class="line">    def eat(self, x, y):</span><br><span class="line">        return &quot;hello&quot; + x + y</span><br><span class="line">    </span><br><span class="line">    # 类方法</span><br><span class="line">    @classmethod</span><br><span class="line">    def run(cls, m):</span><br><span class="line">        return &quot;run %d&quot;%m</span><br><span class="line">    </span><br><span class="line">    # 静态方法</span><br><span class="line">    @staticmethod</span><br><span class="line">    def play(x):</span><br><span class="line">        return &quot;play&quot; + x</span><br><span class="line"></span><br><span class="line">Person.run(20)</span><br><span class="line"></span><br><span class="line">per = Person()</span><br><span class="line">per.eat(&apos;apple&apos;, &apos;egg&apos;)</span><br><span class="line"></span><br><span class="line">per.play(&apos;ball&apos;)</span><br><span class="line">Person.play(&apos;ball&apos;)</span><br></pre></td></tr></table></figure>
+<p>(2) 不登录mysql, 使用 mysqladmin更改</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqladmin -u用户名 -p旧密码 password新密码</span><br></pre></td></tr></table></figure>
 
+<p>(3) 登录mysql，使用update直接编辑user表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; user mysql;</span><br><span class="line">mysql&gt; update user set password = password(&apos;new password&apos;) where user=&apos;root&apos; and host=&apos;localhost&apos;;</span><br><span class="line">mysql&gt; flush privileges</span><br></pre></td></tr></table></figure>
 </li>
-</ol>
-<h2 id="创建单例类，使用new"><a href="#创建单例类，使用new" class="headerlink" title="创建单例类，使用new()"></a>创建单例类，使用<strong>new</strong>()</h2><ol>
-<li>变量<br> (1) 私有属性<pre><code>python中，实例的变量为__xxxx，则为私有属性，只能在内部访问，或者通过公有的方法间接访问私有属性
-原理： python 解释器对外将 __xxxx 改为 _Classname_xxxx, 所以不能再外部直接访问</code></pre> (2) <strong>xxxx</strong> 属于特殊变量, 不是私有的<br> (3) _xxxx变量，虽然可以在外部访问，但是约定俗成，视为私有变量，不要在外部随意访问</li>
-</ol>
-<h2 id="property"><a href="#property" class="headerlink" title="@property"></a>@property</h2><ol>
-<li>使用 @property 来实现 get, set 方法; 让私有属性可以使用.语法 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">class Person:</span><br><span class="line">    def __init__(self, money):</span><br><span class="line">        self.__money = money</span><br><span class="line">    </span><br><span class="line">    @property</span><br><span class="line">    def money(self):</span><br><span class="line">        return self.__money</span><br><span class="line">    </span><br><span class="line">    @money.setter</span><br><span class="line">    def money(self, value):</span><br><span class="line">        self.__money = value</span><br><span class="line"></span><br><span class="line">person = Person(10)</span><br><span class="line">print(person.money)   # 调用了 money get方法，返回__money</span><br><span class="line">person.money = 2000   # 调用了 money set方法，修改__money 值</span><br><span class="line">print(person.money)</span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-<h2 id="动态给实例添加属性与方法"><a href="#动态给实例添加属性与方法" class="headerlink" title="动态给实例添加属性与方法"></a>动态给实例添加属性与方法</h2><ol>
-<li><p>python的类实例化一个对象后，可以给对象绑定任何其他的属性和方法</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">person = Person()</span><br><span class="line">def run():</span><br><span class="line">    do something</span><br><span class="line">from types import MethodType</span><br><span class="line">person.run = Method(run, person)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>要给类的所有实例都绑定属性和方法，则给类绑定方法，（此时，不仅已经创建的对象会绑定新方法，将来创建的对象也将绑定新方法）</p>
-</li>
-<li><p>限制实例的属性，不让对象随意添加属性，只能添加规定的属性。<br> 解决：创建类时，使用<strong>slots</strong> 限制</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">class Person(object):</span><br><span class="line">    __slots__ == (&quot;name&quot;, &quot;age&quot;, &quot;height&quot;, &quot;weight&quot;, &quot;money&quot;, &quot;run&quot;)</span><br><span class="line">    def __init__(self, money):</span><br><span class="line">        self.money = money</span><br><span class="line"></span><br><span class="line">person = Person()</span><br><span class="line">def play():</span><br><span class="line">    do something</span><br><span class="line">person.play = play   # 报错，只能绑定__slots__ 中规定的属性或者方法</span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-<h2 id="单例"><a href="#单例" class="headerlink" title="单例"></a>单例</h2><ol>
-<li><p>一种设计模式，目的是确保一个类只有一个实例存在</p>
-</li>
-<li><p>实现单例的方式<br> (1) 使用模块<br> 原理：python模块是天然的单例，模块第一次导入，会产生.pyc文件，二次使用，直接使用.pyc, 不会再执行模块代码</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 创建Card.py 定义Card类，并初始化一个card 对象 ccc</span><br><span class="line"># 在另一个文件中导入c，则是一个天然的单例</span><br><span class="line">from Card import c</span><br></pre></td></tr></table></figure>
-
-<p> (2) 使用<strong>new</strong><br> 每次实例化的时候，都只返回instance同一个对象</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class Card(object):</span><br><span class="line">    def __new__(cls, *args, **kwargs):</span><br><span class="line">        if not hasattr(cls, &quot;instance&quot;):</span><br><span class="line">            cls.instance = super(Card, cls).__new__(cls)</span><br><span class="line">        return cls.instance</span><br><span class="line"></span><br><span class="line">    def __init__():</span><br><span class="line">        do something</span><br></pre></td></tr></table></figure>
-
-<p> (3) 使用装饰器(最常用)</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">def singleton(cls):</span><br><span class="line">    instances_dict = &#123;&#125;</span><br><span class="line">    def getinstance(*args, **kwargs):</span><br><span class="line">        if cls not in instances_dict:</span><br><span class="line">            instances[cls] = cls(*args, **kwargs)</span><br><span class="line">        return instances[cls]</span><br><span class="line">    return getinstance</span><br><span class="line"></span><br><span class="line">@singleton</span><br><span class="line">class Card(object):</span><br><span class="line">    def __init__():</span><br><span class="line">        do something</span><br><span class="line"></span><br><span class="line">c1 = Card()</span><br><span class="line">c2 = Card()</span><br><span class="line">c1 is c2  # True</span><br></pre></td></tr></table></figure>
-
-<p> (4) 使用元类: 略</p>
-</li>
-</ol>
-<h3 id="str-和-repr"><a href="#str-和-repr" class="headerlink" title="str() 和 repr()"></a><strong>str</strong>() 和 <strong>repr</strong>()</h3><ol>
-<li>调用 print 方法打印类对象，会自动调用类的<strong>str</strong>()方法， 重写该方法可以定制print()打印该对象的格式</li>
-<li>在解释器交互式中，输入对象名（变量名）回车，会调用类的 <strong>repr</strong>() 方法，重写该方法可以定制解释器下该对象的格式</li>
-</ol>
-<h3 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h3><ol>
-<li><p>单继承的实现</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">class Person(Object):   # Person 继承于 Object</span><br><span class="line">    def __init__(self):</span><br><span class="line">        do something</span><br><span class="line"></span><br><span class="line">class Student(Person):  # Student 继承于 Person</span><br><span class="line">    def __init__(self):</span><br><span class="line">        do something</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>多继承的实现</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># 注意：如果两个父类中有相同的方法， 使用子类调用该方法时，如__init__方法，如果不重写这个方法，默认调用最前面的父类，这里是Add</span><br><span class="line">def Add(Object):</span><br><span class="line">    def __init__(self, x):</span><br><span class="line">        self.x = x</span><br><span class="line">def Sub(Object):</span><br><span class="line">    def __init__(self, x):</span><br><span class="line">        slef.x = x</span><br><span class="line"></span><br><span class="line">def Calculator(Add, Sub):  # Calculator 继承于 Add, Sub</span><br><span class="line">    pass</span><br><span class="line"></span><br><span class="line">cal = Calculator(5)</span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-<h3 id="mro"><a href="#mro" class="headerlink" title="mro"></a>mro</h3><ol>
-<li><p>概念： 方法解析顺序, 多继承时，出现方法重名，到底应该进程哪一个？会出现二义性</p>
+<li><p>mysql数据库有哪几种引擎，各个引擎的区别？<br>数据库引擎是数据库用于存储，处理和保护数据的核心服务，不同数据库引擎有其各自的特点，主要体现在存储机制，索引技巧，主键处理，锁粒度等方面。针对自己的项目特点选择合适的数据库引擎可以改善服务端存储性能。mysql中数据库引擎如下图:<br><img src="../ima/mysql_engine_1.png" alt="avatar"><br>(1) InnoDB (默认引擎)</p>
 <ul>
-<li>情况1：B和C分别继承与A与A1类，且A与A1类都定义类f()方法，D继承自B和C, 此时，D继承B的f() 还是 C的f()</li>
-<li>情况2：A类中定义了f() 方法， B与C都继承与A, D继承自B和C, 此时，D继承B的f() 还是 C的f()</li>
-</ul>
+<li>特点:  <ol>
+<li>事务型存储引擎。支持ACID (原子性，一致性，隔离性，持久性)</li>
+<li>具有行级锁定。(锁的粒度小，写数据时，不需要锁住整个表，适用于高并发)</li>
+<li>支持外键。(唯一一个支持外键的引擎)</li>
+<li>支持自动增加列</li>
+</ol>
 </li>
-<li><p>c++解决二义性：</p>
-<ul>
-<li>情况1: 通过同名覆盖解决</li>
-<li>情况2：通过虚继承来解决</li>
-</ul>
-</li>
-<li><p>python类的发展</p>
-<ul>
-<li>经典类：2.2 以前，没有继承的类，定义时，class Name 就可以，不需要(Object)</li>
-<li>新式类: 有Object</li>
-</ul>
-</li>
-<li><p>python解决二义性——mro(通过C3算法解决避免二义性的情况)</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import inspect</span><br><span class="line">class A:</span><br><span class="line">    pass</span><br><span class="line">class B(A):</span><br><span class="line">    pass</span><br><span class="line">class C(A):</span><br><span class="line">    pass</span><br><span class="line">class D(B, C):</span><br><span class="line">    pass</span><br><span class="line">print(inspect.getmro(D))</span><br></pre></td></tr></table></figure>
-
-<p> (1) 对于python3来说，上述代码，只有新式类，默认继承关系是：</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 先在D中寻找函数，没有定义，找B, 再找C, 找A, 最后找到Object </span><br><span class="line">(&lt;class &apos;__main__.D&apos;&gt;, &lt;class &apos;__main__.B&apos;&gt;, &lt;class &apos;__main__.C&apos;&gt;, &lt;class &apos;__main__.A&apos;&gt;, &lt;class &apos;object&apos;&gt;)</span><br></pre></td></tr></table></figure>
-
-<p> (2) 对于python2来说，新式类和经典类并存，class A被认为是经典类，其继承关系是：</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 先找D, 再找B, 找C, 最后找A, 不找Object</span><br><span class="line">(&lt;class __main__.D at 0x7f4d5ad8e1f0&gt;, &lt;class __main__.B at 0x7f4d5ad8e120&gt;, &lt;class __main__.A at 0x7f4d5ad8e0b8&gt;, &lt;class __main__.C at 0x7f4d5ad8e188&gt;)</span><br></pre></td></tr></table></figure>
-
-<p> (3) 总结： </p>
-<ul>
-<li><p>经典类的MRO算法是DFS （深度优先遍历）<br><img src="../ima/python_extends_order.png" alt="avatar"><br>不足之处：</p>
-<blockquote>
-<blockquote>
-<p>对于第二种菱形继承方式, 存在公共父类的多继承，这种情况使用DFS遍历到C之前，必须到D, 如果D中有一些初始化属性和方法，但是C中重写了这些方法与属性，那么最终导致C中重写的属性和方法永远无法被继承到（因为找到D就找到方法名了，不用往下找了）或者说A不能继承重写C中的方法, 如下代码:</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class D:</span><br><span class="line">    def f(self):</span><br><span class="line">        print &quot;in D&quot;</span><br><span class="line">class B(D):</span><br><span class="line">    pass</span><br><span class="line">class C(D):</span><br><span class="line">    def f(self):</span><br><span class="line">        print &quot;in C&quot;</span><br><span class="line">class A(B,C):</span><br><span class="line">    pass</span><br><span class="line"></span><br><span class="line">a = A()</span><br><span class="line">a.run()   # 在 Python2.x 中， a 只能调用 D中的f</span><br></pre></td></tr></table></figure>
-</blockquote>
-</blockquote>
-</li>
-<li><p>新式类的MRO算法是 BFS (广度优先遍历)<br><img src="../ima/python_mro_bfs.png" alt="avatar"><br>不足之处</p>
-<blockquote>
-<blockquote>
-<p>对于第一种继承方式，当D, C有同名函数时， A继承不到D的函数, 违背了单调性(如果父类找不到，找爷爷)</p>
-</blockquote>
-</blockquote>
-</li>
-<li><p>现在的MRO算法是C3算法（拓扑排序）可以解决DFS和BFS的问题： 无法继承重写和非单调性</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import inspect</span><br><span class="line">class D(object):</span><br><span class="line">    pass</span><br><span class="line">class E(object):</span><br><span class="line">    pass</span><br><span class="line">class F(object):</span><br><span class="line">    pass</span><br><span class="line">class C(D, F):</span><br><span class="line">    pass</span><br><span class="line">class B(E, D):</span><br><span class="line">    pass</span><br><span class="line">class A(B, C):</span><br><span class="line">    pass</span><br><span class="line">print(A.mro())</span><br></pre></td></tr></table></figure>
-
-<p>  继承顺序如下：<br>  <img src="../ima/python_mro_c3_1.png" alt="avatar"></p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&lt;class &apos;__main__.A&apos;&gt;, &lt;class &apos;__main__.B&apos;&gt;, &lt;class &apos;__main__.E&apos;&gt;, &lt;class &apos;__main__.C&apos;&gt;, &lt;class &apos;__main__.D&apos;&gt;, &lt;class &apos;__main__.F&apos;&gt;, &lt;class &apos;object&apos;&gt;]</span><br></pre></td></tr></table></figure>
-
-<p>  算法过程：</p>
-<ol>
-<li>从左侧开始找入度为0的点，找出A, </li>
-<li>将A的边减掉</li>
-<li>在剩下的图中重复 1-2 步骤</li>
-<li>最终序列为 ABECDF-Object</li>
+<li>优缺点：<ol>
+<li>优点：提供了良好的事务处理，崩溃恢复，和并发控制</li>
+<li>缺点：读写效率一般，磁盘占用空间大; 不支持全文索引</li>
+<li>适用场景：用于高并发，表需要经常更新与查询; 可靠性要求高，需要支持灾难恢复(通过bin-log日志)的场景; 适合处理大容量数据，运行时在内存中建立缓冲池，缓存数据以及索引。</li>
 </ol>
 </li>
 </ul>
-</li>
-</ol>
-<h3 id="python多态"><a href="#python多态" class="headerlink" title="python多态"></a>python多态</h3><blockquote>
-<blockquote>
-<p>一种事物的多种形态，多态的前提的继承，如下代码<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class Animal(obejct):</span><br><span class="line">    def __init__(self, name):</span><br><span class="line">        self.name = name</span><br><span class="line">    def eat(self):</span><br><span class="line">        print (&quot;%s 吃&quot;%self.name)</span><br><span class="line"></span><br><span class="line">class Dog(Animal):</span><br><span class="line">    # 可重写 eat 方法</span><br><span class="line">    pass</span><br><span class="line"></span><br><span class="line">class Cat(Animal):</span><br><span class="line">    # 可重写 eat 方法</span><br><span class="line">    pass</span><br><span class="line"></span><br><span class="line">class Person(Object):</span><br><span class="line">    def feedAni(self, ani):   # 因为有多态，一个方法可以feed任意种Animal</span><br><span class="line">        ani.eat()</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-</blockquote>
-<h3 id="python-mixin模式"><a href="#python-mixin模式" class="headerlink" title="python mixin模式"></a>python mixin模式</h3><blockquote>
-<blockquote>
-<p>在不使用多继承的情况下，动态添加父类，类似于java的接口<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">class TestMinXin(object):</span><br><span class="line">def func1(self):</span><br><span class="line">    pass</span><br><span class="line">def say(self):</span><br><span class="line">    print(&quot;i am mixin&quot;)</span><br><span class="line">    </span><br><span class="line">class Person(object):</span><br><span class="line">    def say(self):</span><br><span class="line">        print(&quot;i am a person&quot;)</span><br><span class="line"></span><br><span class="line">class Student(Person):</span><br><span class="line">    pass</span><br><span class="line"></span><br><span class="line">stu = Student()</span><br><span class="line">stu.say()</span><br><span class="line"></span><br><span class="line">def mixin(pyClass, pyMixinClass, flag=0):</span><br><span class="line">    if flag:  # flag 为1， 表示将mixin类设置为主 父类</span><br><span class="line">        pyClass.__bases__ = (pyMixinClass,) + pyClass.__bases__</span><br><span class="line">    elif pyMixinClass not in pyClass.__bases__:</span><br><span class="line">        pyClass.__bases__ += (pyMixinClass,)</span><br><span class="line">    else:</span><br><span class="line">        pass</span><br><span class="line"></span><br><span class="line">mixin(Student, TestMinXin, 1)</span><br><span class="line">print(Student.mro())</span><br><span class="line">stu.say()</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-</blockquote>
-<pre><code>i am a person
-[&lt;class &apos;__main__.Student&apos;&gt;, &lt;class &apos;__main__.TestMinXin&apos;&gt;, &lt;class &apos;__main__.Person&apos;&gt;, &lt;class &apos;object&apos;&gt;]
-i am mixin
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> </span><br></pre></td></tr></table></figure></code></pre><h3 id="魔术方法-xxxx-方法"><a href="#魔术方法-xxxx-方法" class="headerlink" title="魔术方法 xxxx 方法"></a>魔术方法 <strong>xxxx</strong> 方法</h3><ol>
-<li>常见魔术方法<br> (1) 初始化：<strong>init</strong>(), <strong>new</strong>(), <strong>del</strong>()<br> (2) 属性控制：<br> (3) 数学运算， 比较运算：<br> (4) 容器方法: <strong>len</strong>(), <strong>iter</strong>(), <pre><code>__contains__() ----- in</code></pre> (5) 描述对象: <strong>get</strong>(), <strong>set</strong>(), <strong>delete</strong>()</li>
-<li>运算符重载 eg: <strong>add</strong> 方法重写，相当于 + 重载</li>
-<li>属性监听 eg: <strong>getattr</strong> 对.引用监听，找不到.属性，执行 <strong>getattr</strong> 方法； <strong>setattr</strong> 对.属性赋值监听，当对.属性赋值时，执行<strong>setattr</strong>方法</li>
-<li>枚举类 </li>
-</ol>
-<h3 id="类装饰器"><a href="#类装饰器" class="headerlink" title="类装饰器"></a>类装饰器</h3><p>类装饰器主要借助 <strong>call</strong> 方法</p>
-<ol>
-<li><p>基本的类装饰器</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Class AAA(object):</span><br><span class="line">    def __init__(self, f):</span><br><span class="line">        self.f = f</span><br><span class="line">    def __call__(self, *args, **kwargs):</span><br><span class="line">        print(&apos;---------&apos;)</span><br><span class="line">        res = self.fun()</span><br><span class="line">        return res</span><br><span class="line"></span><br><span class="line">@AAA</span><br><span class="line">def fun():</span><br><span class="line">    print(&quot;hello world&quot;)</span><br><span class="line"></span><br><span class="line">fun()</span><br><span class="line"># 原理：fun() 相当于执行了 obj = AAA(); fun = obj;  fun() 相当于执行了 类的 __call__ 方法</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>传参的类装饰器</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class AAA(object):</span><br><span class="line">    def __init__(self, count):</span><br><span class="line">        self.count = count</span><br><span class="line">    def __call__(self, f):</span><br><span class="line">        def inner(*args, **kwargs):</span><br><span class="line">            for i in range(self.count):</span><br><span class="line">                f(*args, **kwargs)</span><br><span class="line">        return inner</span><br><span class="line"></span><br><span class="line">@AAA(5)</span><br><span class="line">def fun():</span><br><span class="line">    print(&apos;hello world!&apos;)</span><br><span class="line">fun()</span><br><span class="line"># 原理：@AAA(5) 相当于创建了一个对象 ===&gt;obj = AAA(5)===&gt; 接下来执行obj(fun) 调用 __call__ 返回 inner</span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-<h3 id="python自动发送邮件"><a href="#python自动发送邮件" class="headerlink" title="python自动发送邮件"></a>python自动发送邮件</h3><ol>
-<li>需要用到的模块<br> (1) email.mime.MINEText 用于封装邮件内容<br> (2) smtplib 用于连接邮件服务器</li>
-</ol>
-<h3 id="linux-常用命令"><a href="#linux-常用命令" class="headerlink" title="linux 常用命令"></a>linux 常用命令</h3><ol>
-<li><p>软链接和硬链接<br> (1) 区别：</p>
+<p>(2) MyISAM (以前的默认引擎)</p>
 <ul>
-<li>硬链接是为文件起别名。 A是B的硬链接，则 A 与 B 指向同一个数据块(inode节点)，是平等的。rm A 只是删除了文件名，对应的数据块只有在inode节点链接数减少为0的时候才会被回收</li>
-<li>软链接是快捷方式, 是重定向。A是B的软件链接，则A 指向 B, B 指向真正的数据块。 A与B指向的是两个不同的inode, B被删除了，则A链接失效。<br>(2) 注意：<br>不能对目录创建硬链接——可能出现链环，导致文件遍历操作混乱。<br>(3) 创建链接：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 查看或者合并文件</span><br><span class="line">cat test1.txt test2.txt &gt; test.txt</span><br><span class="line"># 创建链接</span><br><span class="line"># 软链接——快捷方式，指针，源文件删除则软链接失效</span><br><span class="line">ln -s 源文件 链接文件</span><br><span class="line"># 硬链接：删除源文件，链接文件还是存在的</span><br><span class="line">ln 源文件 链接文件</span><br></pre></td></tr></table></figure>
+<li>特点：<ol>
+<li>表级锁。更新时，锁定整张表，降低了并发性能</li>
+<li>只缓存索引，不缓存数据</li>
+<li>支持全文索引</li>
+</ol>
+</li>
+<li>优缺点：<ol>
+<li>优点: 查询速度快，磁盘占用空间少; 独立于操作系统</li>
+<li>缺点：不支持事务的完整性和并发性</li>
+<li>适用场景：需要做很多count运算，查询频繁，修改较少，没有事务需求的场景，如blog</li>
+</ol>
 </li>
 </ul>
-</li>
-<li><p>linux 常见的三大文本处理工具<br> (1) awk<br> (2) sed<br> (3) grep</p>
-</li>
-<li><p>linux 文件查找<br> (1) find</p>
+<p>(3) MEMORY</p>
 <ul>
-<li>find ./ -name test.sh</li>
-<li>find ./ -name “*.sh”  模糊查询，查找当前目录下所有后缀为.sh的文件</li>
-<li>find ./ -name “[A-Z]*” 查找当前目录下所有以大写字母开头的文件</li>
-<li>find ./ -size 2M 查找在/tmp目录下等于2M的文件</li>
-<li>find ./ -size +2M 大于2M的文件</li>
-<li>find ./ -size -2M 小于2M的文件</li>
-<li>find ./ -size +4k -size -5M    大于4K且小于5M的文件</li>
-<li>find ./ -perm 0777 查找权限为777的文件或者目录</li>
+<li>特点:<ol>
+<li>默认使用hash索引, 数据放在内存中</li>
+</ol>
+</li>
+<li>优缺点:<ol>
+<li>优点：数据查询最快</li>
+<li>缺点：要求存储定长格式的数据</li>
+<li>适用场景：一般用于存储操作的中间结果表，对中间结果高效分析并得到最终统计结果；适用于目标数据较小，并且需要非常频繁地进行访问</li>
+</ol>
+</li>
+</ul>
+<p>(4) Archive</p>
+<ul>
+<li>优缺点：<ol>
+<li>优点：占用空间小</li>
+<li>缺点：不支持事务；不支持update和delete</li>
+<li>适用场景：用于数据归档，压缩比高，存储空间比innodb 小一量级，适合存储历史数据，如日志信息；提供高速的插入和压缩功能</li>
+</ol>
+</li>
+</ul>
+<p>(5) CSV, BlackHole</p>
+<ul>
+<li>以csv格式存储数据，不支持索引，所有列不为NULL</li>
 </ul>
 </li>
 </ol>
+<h2 id="https-get-和-post-的区别"><a href="#https-get-和-post-的区别" class="headerlink" title="https get 和 post 的区别"></a>https get 和 post 的区别</h2><ol>
+<li>get 参数通过url传递，post 放在 request body 中</li>
+<li>get 请求传参有长度限制(url)，post没有</li>
+<li>get 只支持URL编码，post支持多种编码</li>
+<li>get 请求会被浏览器主动cache, post 不会</li>
+<li>get 请求在浏览器回退时是无害的，post回退时会再次提交请求</li>
+<li>大部分浏览器上，(火狐除外) get 系那将header 与 data 合并产生一个TCP数据包发送； post先发heaer, 再发data, 两个tcp包，因此post消耗时间多些。<strong>注意</strong> 这并不是http中规定的，而是浏览器或者框架所造成的不同</li>
+</ol>
+<h2 id="http-状态码"><a href="#http-状态码" class="headerlink" title="http 状态码"></a>http 状态码</h2><ol>
+<li>200 正常</li>
+<li>304 服务端资源无变化，可使用缓存资源</li>
+<li>400 请求参数不合法</li>
+<li>401 未认证，未授权</li>
+<li>403 禁止但访问</li>
+<li>404 未找到该资源</li>
+<li>500 服务端异常</li>
+</ol>
+<h2 id="2-gt-amp-1"><a href="#2-gt-amp-1" class="headerlink" title="2&gt;&amp;1"></a>2&gt;&amp;1</h2><p>linux 中 0 表示stdin, 1 表示 stdout, 2 表示 stderr</p>
 
       
     </div>
@@ -504,6 +429,12 @@ i am mixin
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/笔试/" rel="tag"># 笔试</a>
+          
+        </div>
       
 
       
@@ -523,6 +454,10 @@ i am mixin
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019-08/" rel="prev" title>
+                 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -599,7 +534,7 @@ i am mixin
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -610,7 +545,7 @@ i am mixin
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">categories</span>
                 
               </div>
@@ -621,7 +556,7 @@ i am mixin
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">tags</span>
                 
               </div>
@@ -654,7 +589,7 @@ i am mixin
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#注意"><span class="nav-number">1.</span> <span class="nav-text">注意</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#——————————————–"><span class="nav-number">2.</span> <span class="nav-text">——————————————–</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#面向对象："><span class="nav-number">2.1.</span> <span class="nav-text">面向对象：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建单例类，使用new"><span class="nav-number">2.2.</span> <span class="nav-text">创建单例类，使用new()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#property"><span class="nav-number">2.3.</span> <span class="nav-text">@property</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动态给实例添加属性与方法"><span class="nav-number">2.4.</span> <span class="nav-text">动态给实例添加属性与方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单例"><span class="nav-number">2.5.</span> <span class="nav-text">单例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#str-和-repr"><span class="nav-number">2.5.1.</span> <span class="nav-text">str() 和 repr()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#继承"><span class="nav-number">2.5.2.</span> <span class="nav-text">继承</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mro"><span class="nav-number">2.5.3.</span> <span class="nav-text">mro</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#python多态"><span class="nav-number">2.5.4.</span> <span class="nav-text">python多态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#python-mixin模式"><span class="nav-number">2.5.5.</span> <span class="nav-text">python mixin模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#魔术方法-xxxx-方法"><span class="nav-number">2.5.6.</span> <span class="nav-text">魔术方法 xxxx 方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类装饰器"><span class="nav-number">2.5.7.</span> <span class="nav-text">类装饰器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#python自动发送邮件"><span class="nav-number">2.5.8.</span> <span class="nav-text">python自动发送邮件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#linux-常用命令"><span class="nav-number">2.5.9.</span> <span class="nav-text">linux 常用命令</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数据库类"><span class="nav-number">1.</span> <span class="nav-text">数据库类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL"><span class="nav-number">1.1.</span> <span class="nav-text">MySQL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#https-get-和-post-的区别"><span class="nav-number">1.2.</span> <span class="nav-text">https get 和 post 的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#http-状态码"><span class="nav-number">1.3.</span> <span class="nav-text">http 状态码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-gt-amp-1"><span class="nav-number">1.4.</span> <span class="nav-text">2&gt;&amp;1</span></a></li></ol></li></ol></div>
             
 
           </div>
